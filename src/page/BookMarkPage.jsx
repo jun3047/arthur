@@ -1,66 +1,119 @@
 import styled from "styled-components"
 import {Header} from "../component/SearchHeader"
 import {BookMarkHeader} from "../component/BookMarkHeader"
-import {fakeContent} from "../constants"
-
-const fakeBookmark = [
-  {
-    title: '기본',
-    names: ['예시이미지', '예시이미지'],
-  },
-  {
-    title: '기본',
-    names: ['예시이미지', '예시이미지'],
-  },
-]
+import {NewBookmarkPage} from "../component/NewBookmarkPage"
+import {useNavigate} from "react-router-dom"
+import fakeData from '../constants.json';
+import {useState} from "react"
 
 export const BookMarkPage = () => {
+
+  const navigation = useNavigate()
+  const [newBookmark, setNewBookmark] = useState(false)
+  const makeNewBookmark = () => setNewBookmark(true)
 
   return (
     <PageContainer>
       <Header />
-      <BookMarkHeader />
-      <BookmarkList bookmark={fakeBookmark} />
+      <BookMarkHeader 
+        BackBtnHandler={()=>navigation('/')}
+        makeNewBookmark={makeNewBookmark}
+      />
+      {newBookmark && <NewBookmarkPage setDetail={setNewBookmark}/>}
+      <BookmarkList bookmark={fakeData['fakeBookmark']} />
+
     </PageContainer>
   )
 }
 
 const PageContainer = styled.div`
+
+  display: flex;
+  align-items: center;
   height: 100%;
-  width: 100vw;
+  width: 100%;
 `
 
 const BookmarkList = ({bookmark}) => {
+
+    const navigation = useNavigate()
   
     return (
       <BookmarkListContainer>
-        {bookmark.map((item, index) => (
-          <div>
-          <BookmarkItem key={index} src= {item.names[0] + '.jpg'} item={item} />
-          <BookMarkText>{item.title}</BookMarkText>
-          </div>
-        ))}
+        {bookmark.map((item, index) => {
+
+          return (
+            <BookmarkItemWrapper>
+            {
+                item.names[0] ? <BookmarkItem
+                  onClick={() => {
+                    navigation('/bookmark/' + item.title)          
+                  }}
+                  key={index} 
+                  src={item.names[0] + '.jpg'}
+                  item={item}
+                />:
+                <EntpyBookmarkItem
+                  onClick={() => {
+                    navigation('/bookmark/' + item.title)        
+                  }}
+                  key={index} 
+                  item={item}
+                />
+            }
+            <BookMarkText>{item.title}</BookMarkText>
+            </BookmarkItemWrapper>
+            )
+          })}
+       
       </BookmarkListContainer>
     )
 }
 
+
+
 const BookmarkListContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
+
+    margin: 0 auto;
+    width: auto;
+    padding-left: 30px;
+    margin-top: 29px;
+    display: flex;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+
+    }
+`
+
+const BookmarkItemWrapper = styled.div`
+
+    width: 295px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+
+    @media (max-width: 768px) {
+
+    }
+`
+
+const BookmarkItem = styled.img`
+    width: 295px;
+    height: 295px;
+    border-radius: 20px;
+`
+
+const EntpyBookmarkItem = styled.img`
+    width: 295px;
+    height: 295px;
+    border-radius: 20px;
+    background-color: #EFEFEF;
 `
 
 const BookMarkText = styled.div`
-  position: relative;
   right: -20px;
   top: -60px;
   color: #000;
   font-size: 20px;
   font-weight: 600;
-`
-
-const BookmarkItem = styled.img`
-  margin: 0 12.5px 78px 12.5px;
-  width: 295px;
-  height: 295px;
 `

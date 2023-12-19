@@ -6,17 +6,17 @@ import ContentList from "../component/ContentList"
 import {DetailPage} from "../component/DetailPage"
 import FilterPage from "../component/FilterPage"
 import {useState} from "react"
-import {fakeContent} from "../constants"
+import fakeData from '../constants.json';
 
 export const MainPage = () => {
   
   const [detail, setDetail] = useState(undefined)
   const [filter, setFilter] = useState(false)
-  const [content, setContent] = useState(fakeContent)
+  const [content, setContent] = useState(fakeData['fakeContent'])
 
   const filterByTags = (tagList) => {
 
-    const filterContent = fakeContent.filter((item)=>{
+    const filterContent = fakeData['fakeContent'].filter((item)=>{
       return tagList.every(tag => item.tags.includes(tag));
     })
 
@@ -32,9 +32,7 @@ export const MainPage = () => {
         <FilterPage 
           offFilter={()=>setFilter(false)}
           filterBtnHandler={(tagList)=>{
-              // 결과적용
               filterByTags(tagList)
-              console.log('filterBtnHandler');
               setFilter(false)
             }}
         />)}

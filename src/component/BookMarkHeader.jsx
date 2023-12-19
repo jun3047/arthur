@@ -4,15 +4,15 @@ import { useNavigate } from "react-router-dom"
 
 const fakeBookmark = ["정준"]
 
-export const BookMarkHeader = () => {
+export const BookMarkHeader = ({title, BackBtnHandler, makeNewBookmark}) => {
 
-    const navigation = useNavigate()
+    const mainTitle = title ? title : "내 북마크"
 
     return (
         <HeaderContainer>
-            <BackBtn src="/back.png" onClick={()=>navigation('/')}/>
-            <MeunText>내 북마크</MeunText>
-            <PlusBtn src="/plus.png" />
+            <BackBtn src="/back.png" onClick={BackBtnHandler}/>
+            <MeunText>{mainTitle}</MeunText>
+            <PlusBtn src="/plus.png" onClick={makeNewBookmark}/>
             <MeunTextBar />
         </HeaderContainer>
     )

@@ -23,7 +23,7 @@ const BackgroundDark = styled.div`
     position: absolute;
     z-index: 2;
     width: 100vw;
-    height: 110vh;
+    height: 1000vh;
     background: rgba(75, 77, 88, 0.91);
 
     display: flex;
