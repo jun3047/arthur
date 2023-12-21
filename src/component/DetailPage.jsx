@@ -1,16 +1,21 @@
 import styled from "styled-components"
-import { BookmarkBtn } from "./SearchHeader"
 import ContentList from "./ContentList"
+import fakeData from '../constants.json';
+import {useEffect, useState} from "react"
+import { BookmarkToggle } from "./BookmarkToggle";
+import bookmarkIcon from '../asset/bookmark.svg'
 
 export const DetailPage = ({detail, setDetail}) => {
 
     const close = () => setDetail(undefined)
 
+    const nowContent = fakeData['fakeContent'].find((item) => item.name === detail.name)
+
     return (
         <BackgroundDark>
             <DetailContainer>
                 <DetailBox>
-                    <DetailHeader close={close} />
+                    <DetailHeader  nowContent={nowContent} close={close} />
                     <MainContent detail={detail}/> 
                     <RelatedContent setDetail={setDetail}/>
                 </DetailBox>
@@ -37,12 +42,21 @@ const DetailContainer = styled.div`
     position: absolute;
 `
 
-const DetailHeader = ({close}) => {
+const DetailHeader = ({close, nowContent}) => {
+
+    const initActive = () => fakeData['fakeBookmark']
+        .find((bookmark) => bookmark.names.includes(nowContent.name))
+
+    const [active, setActive] = useState(initActive)
+
+    const onBookmark = () => setActive(true)
 
     return (
         <DetailHeaderContainer>
-            <BookmarkMeun />
-            <BookmarkBtn />
+            <BookmarkMeun
+                onBookmark={onBookmark}
+                nowContent={nowContent}/>
+            <BookmarkBtn active={active} nowContent={nowContent}/>
             <Xbtn 
                 src="/x.svg"
                 onClick={close}
@@ -50,6 +64,34 @@ const DetailHeader = ({close}) => {
         </DetailHeaderContainer>
     )
 }
+
+
+const BookmarkBtn = ({nowContent, active}) => {
+
+    return (
+        <BookmarkBtnContainer 
+            active={active}>
+            <BookmarkBtnIcon />
+        </BookmarkBtnContainer>
+    )
+}
+
+const BookmarkBtnContainer = styled.div`
+    background-color: ${props => props.active ? '#403DDE' : '#555555'};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 20px;
+`
+
+
+const BookmarkBtnIcon = () => {
+    return <img src={bookmarkIcon} alt="Bookmark Icon" />
+}
+
 
 const DetailHeaderContainer = styled.div`
     padding-top: 53px;
@@ -62,17 +104,31 @@ const DetailHeaderContainer = styled.div`
     background-color: white;
 `
 
-const BookmarkMeun = () => {
+const BookmarkMeun = ({nowContent, onBookmark}) => {
+
+    const initBookmark = fakeData['fakeBookmark'][0]
+    const [onBookmarkToggle, setOnBookmarkToggle] = useState(false)
+
+    const bookmarkToggle = () => setOnBookmarkToggle(!onBookmarkToggle)
+
     return (
-        <BookmarkContainer>
-            <BookmarkText>북바크 34</BookmarkText>
+        <BookmarkContainer onClick={bookmarkToggle}>
+            <BookmarkText>{initBookmark.title}</BookmarkText>
             <BookmarkIcon src="/bookmark_more.png"/>
+            {
+                onBookmarkToggle &&
+                <BookmarkToggle 
+                    onBookmark={onBookmark}
+                    nowContent={nowContent}
+                />
+            }
         </BookmarkContainer>
     )
 }
 
 const BookmarkContainer = styled.div`
     padding: 0 6px;
+    padding-right: 18px;
     height: 38px;
     border-radius: 19px;
     background: #eee;
@@ -81,6 +137,11 @@ const BookmarkContainer = styled.div`
     justify-content: center;
 
     margin-right: 18px;
+
+    &:hover {
+        background-color: #E1E1E1;
+        cursor: pointer;
+    }
 `
 
 const BookmarkText = styled.div`
@@ -95,7 +156,6 @@ const BookmarkText = styled.div`
 const BookmarkIcon = styled.img`
     width: 6px;
     height: 3px;
-    color: #555;
 `
 
 const Xbtn = styled.img`
@@ -174,6 +234,7 @@ const MainContentText = styled.div`
     font-size: 14px;
     font-weight: 400;
     text-align: left;
+    line-height: 22px; /* 157.143% */
 `
 
 

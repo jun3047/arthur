@@ -1,8 +1,4 @@
 import styled from "styled-components"
-import { useNavigate } from "react-router-dom" 
-
-
-const fakeBookmark = ["정준"]
 
 export const BookMarkHeader = ({title, BackBtnHandler, makeNewBookmark}) => {
 

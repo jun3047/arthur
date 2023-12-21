@@ -111,6 +111,7 @@ const BookmarkIcon = () => {
     return <img src={bookmarkIcon} alt="Bookmark Icon" />
 }
 
+
 const SearchBarContainer = styled.div`
     width: 100%;
     max-width: 1010px;
