@@ -2,6 +2,7 @@
   "name": "arthur",
   "version": "0.1.0",
   "private": true,
+  "main": "src/electron.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -28,7 +29,7 @@
     "test": "react-scripts test"
   },
   "build": {
-    "productName": "NB",
+    "productName": "ARTHUR",
     "appId": "com.nb.electron",
     "asar": true,
     "mac": {
@@ -38,7 +39,7 @@
       "icon": "build/icons/icon.icns"
     },
     "dmg": {
-      "title": "NB",
+      "title": "ARTHUR",
       "icon": "build/icons/icon.icns"
     },
     "win": {
@@ -54,9 +55,9 @@
       "perMachine": true,
       "language": 1042,
       "installerIcon": "build/icons/icon.ico",
-      "shortcutName": "NB",
+      "shortcutName": "ARTHUR",
       "artifactName": "NB-${version}.${ext}",
-      "uninstallDisplayName": "NB"
+      "uninstallDisplayName": "ARTHUR"
     },
     "directories": {
       "buildResources": "./build/",
