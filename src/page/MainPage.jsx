@@ -60,15 +60,23 @@ export const MainPage = () => {
     const searchResults = searchInJsonData(fakeData['fakeContent'], searchTerm);
     setContent(searchResults);
   };
-
+  
   const filterByTags = (tagList) => {
-
-    const filterContent = fakeData['fakeContent'].filter((item)=>{
-      return tagList.every(tag => item.tags.includes(tag));
-    })
-
-    setContent(filterContent)
-  }
+    const filterContent = fakeData['fakeContent']
+      .filter((item) => {
+        // 조건 1: tag 하나라도 있으면, 결과에 포함
+        return tagList.some(tag => item.tags.includes(tag));
+      })
+      .sort((a, b) => {
+        // 조건 2: tag가 많이 일치하는 항목이 앞에 오도록 정렬
+        const countA = tagList.filter(tag => a.tags.includes(tag)).length;
+        const countB = tagList.filter(tag => b.tags.includes(tag)).length;
+        return countB - countA;
+      });
+  
+    setContent(filterContent);
+  };
+  
 
   return (
     <PageContainer>
