@@ -17,7 +17,7 @@ const FilterContainer = styled.div`
     z-index: 3;
     top: 0px;
     position: absolute;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     background: rgba(75, 77, 88, 0.91);
 `
@@ -48,6 +48,7 @@ const FilterBox = ({offFilter, filterBtnHandler}) => {
                 <FitlerBoxTitle>필터</FitlerBoxTitle>
                 <BackBtn src="/back.png" onClick={offFilter}/>
             </FitlerBoxHeader>
+            <FilterBoxItemWrapper>
             {
                 FilterBoxList.map((item, index) => {
                     return (
@@ -60,12 +61,19 @@ const FilterBox = ({offFilter, filterBtnHandler}) => {
                     )
                 })
             }
+            </FilterBoxItemWrapper>
             <FitlerBtn onClick={()=>filterBtnHandler(tags)}>
                 N개의 결과보기
             </FitlerBtn>
         </FilterBoxContainer>
     )
 }
+
+const FilterBoxItemWrapper = styled.div`
+    padding: 50px 0 80px 0;
+    max-height: 100%;
+    overflow-y: auto; 
+`
 
 
 const FitlerBtn = styled.div`
@@ -167,17 +175,24 @@ const ToggleBtn = styled.img`
 
 
 const FitlerBoxTitle = styled.div`
+    position: absolute;
+
     font-size: 18px;
     font-weight: 700;
     color: black;
 `
 
 const FitlerBoxHeader = styled.div`
+
+    position: fixed;
+    top: 0;
+    right: 0;
     height: 57px;
-    width: 100%;
+    width: 378px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
 `
 
 const BackBtn = styled.img`
