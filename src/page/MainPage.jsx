@@ -23,11 +23,43 @@ function shuffleArray(array) {
   return array;
 }
 
+
+function searchInJsonData(jsonData, searchString) {
+  const results = [];
+
+  // 검색 대상인 'detail' 속성을 갖고 있는 항목을 찾음
+  for (const item of jsonData) {
+    const detail = item.detail;
+
+    // '외모 묘사', '성격 묘사', '표정 묘사'에서 검색
+    for (const key in detail) {
+      if (detail[key].includes(searchString)) {
+        results.push(item);
+        break; // 한 번이라도 찾았으면 더이상 같은 항목에서 검색하지 않음
+      }
+    }
+
+    // 'tags' 배열에서 검색
+    if (item.tags.some(tag => tag.includes(searchString))) {
+      results.push(item);
+    }
+  }
+
+  return results;
+}
+
+
+
 export const MainPage = () => {
   
   const [detail, setDetail] = useState(undefined)
   const [filter, setFilter] = useState(false)
   const [content, setContent] = useState(shuffleArray(fakeData['fakeContent']))
+
+  const handleSearch = (searchTerm) => {
+    const searchResults = searchInJsonData(fakeData['fakeContent'], searchTerm);
+    setContent(searchResults);
+  };
 
   const filterByTags = (tagList) => {
 
@@ -40,11 +72,11 @@ export const MainPage = () => {
 
   return (
     <PageContainer>
-      <Header />
+      <Header handleSearch={handleSearch}/>
       <MenuHeader />
        <FilterBtn onFilter={()=>setFilter(true)}/>
        {filter && (
-        <FilterPage 
+        <FilterPage
           offFilter={()=>setFilter(false)}
           filterBtnHandler={(tagList)=>{
               filterByTags(tagList)

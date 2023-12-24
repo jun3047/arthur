@@ -17,6 +17,16 @@
     {
       "index": 1,
       "detail": {
+            "외모 묘사": "강한",
+            "성격 묘사": "string",
+            "표정 묘사": "string"
+      },
+      "tags": ["터프한","강인한","늙은", "미상", "남자"],
+      "isBookmark": false
+    },
+    {
+      "index": 2,
+      "detail": {
             "외모 묘사": "string",
             "성격 묘사": "string",
             "표정 묘사": "string"

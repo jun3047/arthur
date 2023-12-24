@@ -3,8 +3,9 @@ import searchIcon from '../asset/searchIcon.svg'
 import xIcon from '../asset/x.svg'
 import bookmarkIcon from '../asset/bookmark.svg'
 import {useNavigate, useLocation} from "react-router-dom"
+import { useState } from "react"
 
-export const Header = () => {
+export const Header = ({handleSearch}) => {
 
     const navigate = useNavigate()
     const goToBookmark = () => navigate('/bookmark')
@@ -13,7 +14,7 @@ export const Header = () => {
     return (
         <HeaderContainer>
             <Logo src='/Logo.png' onClick={goToMain}/>
-            <SearchBar />
+            <SearchBar handleSearch={handleSearch}/>
             <BookmarkBtn 
                 goToBookmark={goToBookmark}
             />
@@ -46,13 +47,34 @@ const Logo = styled.img`
 
 
 
-const SearchBar = () => {
+const SearchBar = ({handleSearch}) => {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+      };
+    
+    const handleClearSearch = () => setSearchTerm('');
+    
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter') {
+            handleSearch(searchTerm);
+        }
+    }
+
+    if(handleSearch === undefined) return <SearchBarContainer style={{backgroundColor: 'white'}}/>
 
     return (
         <SearchBarContainer>
-            <SearchIcon />
-            <HeaderField type="text" placeholder="검색" />
-            <XIcon />
+            <SearchIcon onClick={()=>handleSearch(searchTerm)}/>
+            <HeaderField 
+                type="text" 
+                placeholder="검색" 
+                value={searchTerm}
+                onChange={handleSearchChange}
+                onKeyDown={handleKeyPress}
+            />
+            {searchTerm && <XIcon onClick={handleClearSearch}>X</XIcon>}
         </SearchBarContainer>
     )
 } 
@@ -99,8 +121,8 @@ const HeaderField = styled.input`
 `
 
 
-const SearchIcon = () => {
-    return <img src={searchIcon} alt="Search Icon" />
+const SearchIcon = ({onClick}) => {
+    return <img onClick={onClick} src={searchIcon} alt="Search Icon" />
 }
 
 const XIcon = () => {

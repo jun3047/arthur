@@ -72,7 +72,7 @@ const FilterBox = ({offFilter, filterBtnHandler}) => {
 const FilterBoxItemWrapper = styled.div`
     padding: 50px 0 80px 0;
     max-height: 100%;
-    overflow-y: auto; 
+    overflow-y: auto;
 `
 
 
