@@ -19,7 +19,7 @@ export const BookMarkDetailPage = () => {
   const makeNewBookmark = () => setNewBookmark(true)
 
   const nowBookmark = fakeData['fakeBookmark'].find((item) => item.title === title)
-  const bookmarkContent = fakeData['fakeContent'].filter((item) => nowBookmark.names.includes(item.name))
+  const bookmarkContent = fakeData['fakeContent'].filter((item) => nowBookmark.indexs.includes(item.index))
 
   return (
     <PageContainer>

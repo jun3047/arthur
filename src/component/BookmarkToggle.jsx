@@ -58,14 +58,14 @@ const BookmarkToggleText = styled.div`
 
 const BookmarkToggleItem = ({item, nowContent, onBookmark}) => {
 
-    const {title, names} = item;
+    const {title, indexs} = item;
 
     return (
         <BookmarkToggleItemContainer>
             {
-                names.length === 0 ? 
+                indexs.length === 0 ? 
                 <BookmarkToggleItemImgEmtpy /> :
-                <BookmarkToggleItemImg src={ '/' + names[0] + '.jpg'}/> 
+                <BookmarkToggleItemImg src={ '/' + indexs[0].toString() + '.png'}/> 
             }
             <BookmarkToggleItemText>{title}</BookmarkToggleItemText>
             <StrengthBox />
@@ -135,8 +135,8 @@ const BookmarkToggleItemPlusBtn = ({title, nowContent, onBookmark}) => {
 
     const addBookmark = () => {
         fakeData['fakeBookmark'].
-        find(item => item.title === title).names.
-        push(nowContent.name)
+        find(item => item.title === title).indexs.
+        push(nowContent.index)
 
         fakeData['fakeBookmark'].
         find(item => item.title === title).isBookmark = true

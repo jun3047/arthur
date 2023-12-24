@@ -9,10 +9,9 @@ const ContentList = ({content, setDetail}) => {
             content.map((item) => {
                 return (
                     <ContentImgBox 
-                        src={ '/'+ item.name + '.jpg'} alt="예시 이미지" 
+                        src={ '/'+ item.index + '.png'} alt="예시 이미지" 
                         onClick={(e)=>{
                             e.preventDefault()
-                            console.log('click');
                             setDetail(item)
                         }}
                     />

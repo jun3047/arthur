@@ -9,7 +9,7 @@ export const DetailPage = ({detail, setDetail}) => {
 
     const close = () => setDetail(undefined)
 
-    const nowContent = fakeData['fakeContent'].find((item) => item.name === detail.name)
+    const nowContent = fakeData['fakeContent'].find((item) => item.index === detail.index)
 
     return (
         <BackgroundDark>
@@ -45,7 +45,7 @@ const DetailContainer = styled.div`
 const DetailHeader = ({close, nowContent}) => {
 
     const initActive = () => fakeData['fakeBookmark']
-        .find((bookmark) => bookmark.names.includes(nowContent.name))
+        .find((bookmark) => bookmark.indexs.includes(nowContent.index))
 
     const [active, setActive] = useState(initActive)
 
@@ -166,7 +166,7 @@ const Xbtn = styled.img`
 
 const MainContent = ({detail}) => {
 
-    const imgUrl = '/' + detail.name + '.jpg'
+    const imgUrl = '/' + detail.index.toString() + '.png'
     const keys = Object.keys(detail.detail);
     
     return (
@@ -267,29 +267,13 @@ const RelatedContent = ({setDetail}) => {
     //관련 이미지 가져와서 넣기
     const fakeContent = [
         {
-            name: "예시이미지",
+            index: 1,
             detail: {
-                '이름': '정준',
-                '외모': "김묻음",
-                '성격': '개발짱',
-                '말투': '영어장인',
-                '시련과 극복': '나를 죽이지 못하는 어쩌구',
-                '과거사': '과거는 비밀',
+                '외모 묘사': 'string',
+                '성격 묘사': 'string',
+                '표정 묘사': 'string',
             },
-            tags: ['남자', '예쁜', '현대'],
-            isBookmark: false,
-        },
-        {
-            name: "예시이미지",
-            detail: {
-                '이름': '정준',
-                '외모': "김묻음",
-                '성격': '개발짱',
-                '말투': '영어장인',
-                '시련과 극복': '나를 죽이지 못하는 어쩌구',
-                '과거사': '과거는 비밀',
-            },
-            tags: ['남자', '예쁜', '현대'],
+            tags: ['string'],
             isBookmark: false,
         },
     ]

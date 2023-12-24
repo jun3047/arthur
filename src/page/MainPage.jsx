@@ -8,11 +8,26 @@ import FilterPage from "../component/FilterPage"
 import {useState} from "react"
 import fakeData from '../constants.json';
 
+
+function shuffleArray(array) {
+  if (!Array.isArray(array)) {
+      console.error('Invalid input. Please provide an array.');
+      return;
+  }
+
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
+}
+
 export const MainPage = () => {
   
   const [detail, setDetail] = useState(undefined)
   const [filter, setFilter] = useState(false)
-  const [content, setContent] = useState(fakeData['fakeContent'])
+  const [content, setContent] = useState(shuffleArray(fakeData['fakeContent']))
 
   const filterByTags = (tagList) => {
 

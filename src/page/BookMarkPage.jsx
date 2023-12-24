@@ -45,12 +45,12 @@ const BookmarkList = ({bookmark}) => {
           return (
             <BookmarkItemWrapper>
             {
-                item.names[0] ? <BookmarkItem
+                item.indexs[0] ? <BookmarkItem
                   onClick={() => {
                     navigation('/bookmark/' + item.title)          
                   }}
                   key={index} 
-                  src={item.names[0] + '.jpg'}
+                  src={'/' + item.indexs[0].toString() + '.png'}
                   item={item}
                 />:
                 <EntpyBookmarkItem

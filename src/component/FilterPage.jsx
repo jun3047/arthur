@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import { useState } from "react"
+import fakeData from '../constants.json';
+
 
 const FilterPage = ({offFilter, filterBtnHandler}) => {
     return (
@@ -23,12 +25,10 @@ const FilterContainer = styled.div`
 
 
 
-const FilterBoxList = [
-    { name: "분야", children: ["판타지", "일상물", "중세"] },
-    { name: "성별", children: ["남자", "여자", "기타"] },
-    { name: "나이", children: ["어린", "젊은", "늙은", "미상"] },
-    { name: "외모", children: ["예쁜","귀여운","청순한","아름다운","터프한","악한","세련된","매력적인",]}
-]
+
+
+
+const FilterBoxList = fakeData['fakeFilter']
 
 const FilterBox = ({offFilter, filterBtnHandler}) => {
 
