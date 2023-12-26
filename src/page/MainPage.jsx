@@ -60,7 +60,7 @@ export const MainPage = () => {
     const searchResults = searchInJsonData(fakeData['fakeContent'], searchTerm);
     setContent(searchResults);
   };
-  
+
   const filterByTags = (tagList) => {
     const filterContent = fakeData['fakeContent']
       .filter((item) => {
