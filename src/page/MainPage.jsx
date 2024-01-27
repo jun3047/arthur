@@ -150,4 +150,8 @@ const FilterContainer = styled.div`
       right: 22px;
       left: auto;
   }
+
+  &:hover {
+        cursor: pointer;
+  }
 `

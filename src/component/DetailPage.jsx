@@ -169,6 +169,10 @@ const Xbtn = styled.img`
     width: 20px;
     height: 20px;
     margin-left: 31px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const MainContent = ({detail}) => {
@@ -267,6 +271,10 @@ const MainImg = styled.img`
 `
 const NextBtn = styled.img`
     width: 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const RelatedContent = ({setDetail}) => {

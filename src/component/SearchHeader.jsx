@@ -43,6 +43,10 @@ const Logo = styled.img`
     min-width: 217px;
     height: 100%;
     margin-right: 27px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 
@@ -104,6 +108,10 @@ const BookmarkContainer = styled.div`
     min-width: 40px;
     height: 40px;
     border-radius: 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const HeaderField = styled.input`

@@ -21,7 +21,6 @@ export const BookMarkPage = () => {
       />
       {newBookmark && <NewBookmarkPage setDetail={setNewBookmark}/>}
       <BookmarkList bookmark={fakeData['fakeBookmark']} />
-
     </PageContainer>
   )
 }
@@ -40,7 +39,8 @@ const BookmarkList = ({bookmark}) => {
   
     return (
       <BookmarkListContainer>
-        {bookmark.map((item, index) => {
+        {
+          bookmark.map((item, index) => {
 
           return (
             <BookmarkItemWrapper>
@@ -94,6 +94,10 @@ const BookmarkItemWrapper = styled.div`
 
     @media (max-width: 768px) {
 
+    }
+
+    &:hover {
+        cursor: pointer;
     }
 `
 

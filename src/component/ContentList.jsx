@@ -37,6 +37,10 @@ const ContentImgBox = styled.img`
     max-width: 220px;
     max-height: 220px;
     border-radius: 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 export default ContentList

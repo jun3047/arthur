@@ -89,6 +89,10 @@ const FitlerBtn = styled.div`
     align-items: center;
     color: white;
     font-size: 16px;
+
+    &:hover {
+        cursor: pointer;
+    }
 ` 
 
 const FilterBoxItem = ({item, handleTagClick, nowTags}) => {
@@ -149,7 +153,6 @@ const FilterBoxItemBox = styled.div`
     > :nth-child(3) {
         margin-top: 10px;
     }
-
 `
 
 const FilterBoxItemBtn = styled.div`
@@ -168,6 +171,10 @@ const FilterBoxItemBtn = styled.div`
     color: ${props => props.isTagSelected ? '#FFFFFF' : '#5B5B5B'};
     flex-basis: calc(33.33% - 10px); /* 한 줄에 3개씩, 간격은 margin-right로 조절 */
     background-color: ${props => props.isTagSelected ? '#403DDE' : '#FCFCFC'};
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const FilterBoxItemContainer = styled.div`
@@ -188,6 +195,10 @@ const FilterBoxItemTitle = styled.div`
     color: #000;
     font-size: 16px;
     font-weight: 700;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 
@@ -196,6 +207,10 @@ const ToggleBtn = styled.img`
     height: 7.47px;
     margin-right: 10px;
     transform: ${({ open }) => open ? 'none':'rotate(180deg)'};
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 
@@ -220,8 +235,14 @@ const FitlerBoxHeader = styled.div`
 `
 
 const BackBtn = styled.img`
+
+    padding: 10px 14px;
     position: absolute;
-    left: 22px;
+    left: 12px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const FilterBoxContainer = styled.div`

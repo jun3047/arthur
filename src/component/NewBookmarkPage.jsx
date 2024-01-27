@@ -58,6 +58,10 @@ const BookmarkSaveBtn = styled.div`
     color: #fff;
     background-color: #403DDE;
     border-radius: 30px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 
@@ -145,4 +149,8 @@ const Xbtn = styled.img`
     width: 20px;
     height: 20px;
     margin-left: 31px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `

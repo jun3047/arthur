@@ -17,11 +17,19 @@ export const BookMarkHeader = ({title, BackBtnHandler, makeNewBookmark}) => {
 const BackBtn = styled.img`
     position: absolute;
     left: 22px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const PlusBtn = styled.img`
     position: absolute;
     right: 22px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 
