@@ -5,7 +5,7 @@ import {useEffect, useState} from "react"
 import { BookmarkToggle } from "./BookmarkToggle";
 import bookmarkIcon from '../asset/bookmark.svg'
 
-export const DetailPage = ({detail, setDetail}) => {
+export const DetailPage = ({detail, setDetail, nextContent, prevContent}) => {
 
     const close = () => setDetail(undefined)
 
@@ -16,7 +16,11 @@ export const DetailPage = ({detail, setDetail}) => {
             <DetailContainer>
                 <DetailBox>
                     <DetailHeader nowContent={nowContent} close={close} />
-                    <MainContent detail={detail}/> 
+                    <MainContent 
+                        nextContent={nextContent}
+                        prevContent={prevContent}
+                        detail={detail}
+                    />
                     <RelatedContent setDetail={setDetail}/>
                 </DetailBox>
             </DetailContainer>
@@ -188,7 +192,7 @@ const Xbtn = styled.img`
     }
 `
 
-const MainContent = ({detail}) => {
+const MainContent = ({detail, nextContent, prevContent}) => {
 
     const imgUrl = '/' + detail.index.toString() + '.png'
     const keys = Object.keys(detail.detail);
@@ -196,9 +200,9 @@ const MainContent = ({detail}) => {
     return (
         <MainContentContainer>
             <MainImgContainer>
-                <NextBtn src="/before.svg" />
+                <NextBtn src="/before.svg" onClick={()=>prevContent(detail)}/>
                 <MainImg src={imgUrl} />
-                <NextBtn src="/next.svg" />
+                <NextBtn src="/next.svg" onClick={()=>nextContent(detail)}/>
             </MainImgContainer>
             {
                 keys.map((item, index) => {

@@ -54,7 +54,7 @@ export const MainPage = () => {
   
   const [detail, setDetail] = useState(undefined)
   const [filter, setFilter] = useState(false)
-  const [content, setContent] = useState(shuffleArray(fakeData['fakeContent']))
+  const [content, setContent] = useState(fakeData['fakeContent'])
 
   const handleSearch = (searchTerm) => {
     const searchResults = searchInJsonData(fakeData['fakeContent'], searchTerm);
@@ -76,6 +76,35 @@ export const MainPage = () => {
   
     setContent(filterContent);
   };
+
+  //현재 item의 인덱스를 content에서 몇번째인지 찾아서 반환
+
+  const findIndexInContent = (item) => {
+
+    console.log(item.index);
+    console.log(content.findIndex((element) => element.index === item.index))
+
+
+    return content.findIndex((element) => element.index === item.index)
+  }
+
+  const nextContent = (detail) => {
+    const index = findIndexInContent(detail)
+    if(index === content.length - 1) {
+      setDetail(content[0])
+    } else {
+      setDetail(content[index + 1])
+    }
+  }
+
+  const prevContent = (detail) => {
+    const index = findIndexInContent(detail)
+    if(index === 0) {
+      setDetail(content[content.length - 1])
+    } else {
+      setDetail(content[index - 1])
+    }
+  }
   
 
   return (
@@ -92,7 +121,13 @@ export const MainPage = () => {
             }}
         />)}
       <ContentList content={content} setDetail={setDetail}/>
-      {detail && <DetailPage detail={detail} setDetail={setDetail}/>}
+      {detail && (
+        <DetailPage
+          detail={detail}
+          setDetail={setDetail}
+          nextContent={nextContent}
+          prevContent={prevContent}
+        />)}
     </PageContainer>
   )
 }
