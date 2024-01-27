@@ -22,12 +22,6 @@ const FilterContainer = styled.div`
     background: rgba(75, 77, 88, 0.91);
 `
 
-
-
-
-
-
-
 const FilterBoxList = fakeData['fakeFilter']
 
 const FilterBox = ({offFilter, filterBtnHandler}) => {
@@ -103,13 +97,13 @@ const FilterBoxItem = ({item, handleTagClick, nowTags}) => {
 
     return (
         <FilterBoxItemContainer>
-            <FilterBoxItemTitle>
-                <ToggleBtn src="/toggle.png"/>
+            <FilterBoxItemTitle onClick={()=>setIsItemOpen(!isItemOpen)}>
+                <ToggleBtn open={isItemOpen} src="/toggle.png"/>
                 {item.name}
             </FilterBoxItemTitle>
-            <FilterBoxItemBox>
+            <FilterBoxItemBox remainder={item.children.length % 3}>
                 {
-                    item.children.map((tag) => {
+                    isItemOpen && item.children.map((tag) => {
 
                         const isTagSelected = nowTags.includes(tag);
 
@@ -129,7 +123,33 @@ const FilterBoxItem = ({item, handleTagClick, nowTags}) => {
 const FilterBoxItemBox = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin-top: 15px;
+
+    > :nth-last-child(1) {
+        ${({ remainder }) => {
+            const flexBasis = remainder !== 0 ? '50%' : '33.3%';
+            return `
+                flex-basis: calc(${flexBasis} - 10px);
+                margin-right: 10px;
+            `;
+        }}
+    }
+
+    > :nth-last-child(2) {
+        ${({ remainder }) => {
+            const flexBasis = remainder === 2 ? '50%' : '33.3%';
+            return `
+                flex-basis: calc(${flexBasis} - 10px);
+                margin-right: 10px;
+            `;
+        }}
+    }
+
+    > :nth-child(1),
+    > :nth-child(2),
+    > :nth-child(3) {
+        margin-top: 10px;
+    }
+
 `
 
 const FilterBoxItemBtn = styled.div`
@@ -151,10 +171,13 @@ const FilterBoxItemBtn = styled.div`
 `
 
 const FilterBoxItemContainer = styled.div`
-    border: 0.5px soild #CFCFCF;
+    border-top: 1px solid #C8C8C8;
     width: 100%;
-    padding: 0 22px;
-    margin-top: 30px;
+    padding: 10px 22px;
+    margin-top: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `
 
 
@@ -169,10 +192,10 @@ const FilterBoxItemTitle = styled.div`
 
 
 const ToggleBtn = styled.img`
-
     width: 14.94px;
     height: 7.47px;
     margin-right: 10px;
+    transform: ${({ open }) => open ? 'none':'rotate(180deg)'};
 `
 
 
