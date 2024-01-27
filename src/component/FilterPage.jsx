@@ -98,6 +98,7 @@ const FitlerBtn = styled.div`
 
 const FilterBoxItem = ({item, handleTagClick, nowTags}) => {
 
+    const [isItemOpen, setIsItemOpen] = useState(false);
 
     return (
         <FilterBoxItemContainer>
@@ -107,7 +108,7 @@ const FilterBoxItem = ({item, handleTagClick, nowTags}) => {
             </FilterBoxItemTitle>
             <FilterBoxItemBox>
                 {
-                    item.children.map((tag) => {
+                    !isItemOpen && item.children.map((tag) => {
 
                         const isTagSelected = nowTags.includes(tag);
 

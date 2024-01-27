@@ -25,6 +25,7 @@ const ContentList = ({content, setDetail}) => {
 const ContentContainer = styled.div`
 
     width: 750px;
+    overscroll-behavior: contain;
 
     @media (max-width: 768px) {
         width: 500px;

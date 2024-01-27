@@ -15,7 +15,7 @@ export const DetailPage = ({detail, setDetail}) => {
         <BackgroundDark>
             <DetailContainer>
                 <DetailBox>
-                    <DetailHeader  nowContent={nowContent} close={close} />
+                    <DetailHeader nowContent={nowContent} close={close} />
                     <MainContent detail={detail}/> 
                     <RelatedContent setDetail={setDetail}/>
                 </DetailBox>
@@ -25,21 +25,28 @@ export const DetailPage = ({detail, setDetail}) => {
 }
 const BackgroundDark = styled.div`
     top: 0px;
-    position: absolute;
     z-index: 2;
     width: 100vw;
-    height: 1000vh;
     background: rgba(75, 77, 88, 0.91);
 
+    position: fixed;
     display: flex;
     justify-content: center;
+    overscroll-behavior: contain;
 `
 
 
 const DetailContainer = styled.div`
+    height: 100vh;
     z-index: 3;
-    top: 0px;
-    position: absolute;
+    
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `
 
 const DetailHeader = ({close, nowContent}) => {
@@ -57,7 +64,7 @@ const DetailHeader = ({close, nowContent}) => {
                 onBookmark={onBookmark}
                 nowContent={nowContent}/>
             <BookmarkBtn active={active} nowContent={nowContent}/>
-            <Xbtn 
+            <Xbtn
                 src="/x.svg"
                 onClick={close}
             />
@@ -94,8 +101,8 @@ const BookmarkBtnIcon = () => {
 
 
 const DetailHeaderContainer = styled.div`
-    padding-top: 53px;
     padding-bottom: 15px;
+    padding-top: 40px;
     margin: 28px 34px;
     display: flex;
     align-items: center;
