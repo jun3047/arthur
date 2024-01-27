@@ -153,5 +153,18 @@ const FilterContainer = styled.div`
 
   &:hover {
         cursor: pointer;
+        background-color: #C8C8C8;
+  }
+
+  &:active {
+    background-color: #000000; /* 눌린 상태일 때의 색상 */
+
+    img {
+      filter: brightness(0) invert(1);
+    }
+    
+    div {
+      color: #ffffff;
+    }
   }
 `

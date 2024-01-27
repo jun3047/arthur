@@ -100,7 +100,7 @@ const FilterBoxItem = ({item, handleTagClick, nowTags}) => {
     const [isItemOpen, setIsItemOpen] = useState(false);
 
     return (
-        <FilterBoxItemContainer>
+        <FilterBoxItemContainer isOpen={isItemOpen}>
             <FilterBoxItemTitle onClick={()=>setIsItemOpen(!isItemOpen)}>
                 <ToggleBtn open={isItemOpen} src="/toggle.png"/>
                 {item.name}
@@ -171,10 +171,19 @@ const FilterBoxItemBtn = styled.div`
     color: ${props => props.isTagSelected ? '#FFFFFF' : '#5B5B5B'};
     flex-basis: calc(33.33% - 10px); /* 한 줄에 3개씩, 간격은 margin-right로 조절 */
     background-color: ${props => props.isTagSelected ? '#403DDE' : '#FCFCFC'};
-
+    
     &:hover {
+        background-color: ${props => props.isTagSelected ? '#403DDE' : '#E8E8E8'};
+        color: ${props => props.isTagSelected ? '#FFFFFF' : '#403DDE'};
+        border: 1px solid #403DDE;
         cursor: pointer;
     }
+    
+    &:active {
+        background-color: ${props => props.isTagSelected ? '#403DDE' : '#403DDE'};
+        color: #FFFFFF;
+    }
+
 `
 
 const FilterBoxItemContainer = styled.div`
@@ -185,6 +194,11 @@ const FilterBoxItemContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 17.5px;
+
+    &:hover {
+        background-color: ${({isOpen})=> isOpen ?  '#FFFFFF' : '#EDEDED'}
+    }
 `
 
 

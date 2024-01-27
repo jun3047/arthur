@@ -29,7 +29,8 @@ const BookmarkToggleContainer = styled.div`
     border-radius: 7px;
 
     position: absolute;
-    top: 130px;
+    top: 46px;
+    right: 0px;
 
     padding: 7px 13px 16px 13px;
 

@@ -119,7 +119,7 @@ const BookmarkMeun = ({nowContent, onBookmark}) => {
     const bookmarkToggle = () => setOnBookmarkToggle(!onBookmarkToggle)
 
     return (
-        <BookmarkContainer onClick={bookmarkToggle}>
+        <BookmarkContainer active={onBookmarkToggle} onClick={bookmarkToggle}>
             <BookmarkText>{initBookmark.title}</BookmarkText>
             <BookmarkIcon src="/bookmark_more.png"/>
             {
@@ -134,6 +134,10 @@ const BookmarkMeun = ({nowContent, onBookmark}) => {
 }
 
 const BookmarkContainer = styled.div`
+
+    position: relative;
+    
+    box-sizing: border-box;
     padding: 0 6px;
     padding-right: 18px;
     height: 38px;
@@ -149,6 +153,15 @@ const BookmarkContainer = styled.div`
         background-color: #E1E1E1;
         cursor: pointer;
     }
+
+    ${props => props.active && `
+        border: 1px solid #403DDE;
+
+        > div {
+            color: #403DDE;
+        }
+    `}
+
 `
 
 const BookmarkText = styled.div`
