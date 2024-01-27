@@ -16,7 +16,7 @@ const FilterPage = ({offFilter, filterBtnHandler}) => {
 const FilterContainer = styled.div`
     z-index: 3;
     top: 0px;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     background: rgba(75, 77, 88, 0.91);
@@ -73,6 +73,7 @@ const FilterBoxItemWrapper = styled.div`
     padding: 50px 0 80px 0;
     max-height: 100%;
     overflow-y: auto;
+    overscroll-behavior: contain;
 `
 
 
@@ -108,7 +109,7 @@ const FilterBoxItem = ({item, handleTagClick, nowTags}) => {
             </FilterBoxItemTitle>
             <FilterBoxItemBox>
                 {
-                    !isItemOpen && item.children.map((tag) => {
+                    item.children.map((tag) => {
 
                         const isTagSelected = nowTags.includes(tag);
 
@@ -184,7 +185,6 @@ const FitlerBoxTitle = styled.div`
 `
 
 const FitlerBoxHeader = styled.div`
-
     position: fixed;
     top: 0;
     right: 0;
@@ -202,13 +202,14 @@ const BackBtn = styled.img`
 `
 
 const FilterBoxContainer = styled.div`
-
     right: 0px;
-    position: absolute;
+    position: fixed;
     z-index: 4;
     width: 388px;
     height: 100%;
     background-color: white;
+    scroll-behavior: contain;
+    overflow-y: auto;
 `
 
 
