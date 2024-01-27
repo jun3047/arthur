@@ -24,20 +24,15 @@ const ContentList = ({content, setDetail}) => {
 
 const ContentContainer = styled.div`
 
-    min-width: 400px;
-    width: 100%;
-    padding-left: 30px;
-    margin-top: 29px;
-    margin: auto 0;
+    width: 750px;
 
     @media (max-width: 768px) {
-
+        width: 500px;
     }
 `
 
 const ContentImgBox = styled.img`
-    margin-right: 30px;
-    margin-bottom: 30px;
+    margin: 15px;
     max-width: 220px;
     max-height: 220px;
     border-radius: 20px;
