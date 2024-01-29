@@ -1,26 +1,17 @@
 {
-  "name": "arthur",
-  "version": "0.1.0",
-  "private": true,
-  "main": "src/electron.js",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.0",
-    "react-scripts": "5.0.1",
-    "styled-components": "^6.1.1",
-    "web-vitals": "^2.1.4",
-    "yarn": "^1.22.21"
-  },
+  "proxy": "http://localhost:3000",
+  "name": "author",
+  "description": "NB electron example",
+  "author": "NB",
+  "version": "1.0.0",
+  "private": false,
+  "main": "public/electron.js",
+  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "electron": "electron .",
     "electron:window": "SET ELECTRON_START_URL=http://localhost:3000 && yarn electron",
-    "electron:xos": "ELECTRON_START_URL=http://localhost:3000 && yarn electron",
-    "prebuild": "react-scripts test --watchAll=false",
+    "electron:xos": "ELECTRON_START_URL=http://localhost:3000 yarn electron",
     "build": "react-scripts build",
     "deploy:xos": "electron-builder --mac",
     "deploy:win32": "electron-builder --win --ia32",
@@ -29,24 +20,22 @@
     "test": "react-scripts test"
   },
   "build": {
-    "productName": "ARTHUR",
+    "productName": "NB",
     "appId": "com.nb.electron",
     "asar": true,
     "mac": {
+      "artifactName": "${name}-${version}.${arch}.${ext}",
       "target": [
         "default"
-      ],
-      "icon": "build/icons/icon.icns"
+      ]
     },
     "dmg": {
-      "title": "ARTHUR",
-      "icon": "build/icons/icon.icns"
+      "title": "NB"
     },
     "win": {
       "target": [
         "nsis"
-      ],
-      "icon": "build/icons/icon.ico"
+      ]
     },
     "nsis": {
       "oneClick": false,
@@ -54,15 +43,30 @@
       "createDesktopShortcut": true,
       "perMachine": true,
       "language": 1042,
-      "installerIcon": "build/icons/icon.ico",
-      "shortcutName": "ARTHUR",
+      "shortcutName": "NB",
       "artifactName": "NB-${version}.${ext}",
-      "uninstallDisplayName": "ARTHUR"
+      "uninstallDisplayName": "NB"
     },
     "directories": {
       "buildResources": "./build/",
       "output": "./dist/"
     }
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@babel/core": "7.22.5",
+    "@babel/eslint-parser": "7.22.5",
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
+    "@babel/preset-env": "7.22.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0",
+    "react-scripts": "5.0.1",
+    "styled-components": "^6.1.1",
+    "web-vitals": "^2.1.4",
+    "yarn": "^1.22.21"
   },
   "eslintConfig": {
     "extends": [
@@ -86,7 +90,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "electron": "^28.0.0",
+    "electron": "^28.2.0",
     "electron-builder": "^24.9.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
