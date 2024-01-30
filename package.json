@@ -6,7 +6,6 @@
   "version": "1.0.0",
   "private": false,
   "main": "public/electron.js",
-  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "electron": "electron .",
