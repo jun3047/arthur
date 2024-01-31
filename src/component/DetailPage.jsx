@@ -21,7 +21,7 @@ export const DetailPage = ({detail, setDetail, nextContent, prevContent}) => {
                         prevContent={prevContent}
                         detail={detail}
                     />
-                    <RelatedContent setDetail={setDetail}/>
+                    <RelatedContent setDetail={setDetail} tags={nowContent['tags']}/>
                 </DetailBox>
             </DetailContainer>
         </BackgroundDark>
@@ -294,33 +294,54 @@ const NextBtn = styled.img`
     }
 `
 
-const RelatedContent = ({setDetail}) => {
 
-    //관련 이미지 가져와서 넣기
-    const fakeContent = [
-        {
-            index: 1,
-            detail: {
-                '외모 묘사': 'string',
-                '성격 묘사': 'string',
-                '표정 묘사': 'string',
-            },
-            tags: ['string'],
-            isBookmark: false,
-        },
-    ]
+const RelatedContent = ({setDetail, tags}) => {
+
+    const filterByTags = (tagList) => {
+        const filterContent = fakeData['fakeContent']
+          .filter((item) => {
+            // 조건 0: 본 항목은 제외
+            return item.tags !== tags;
+          })
+          .filter((item) => {
+            // 조건 1: tag 하나라도 있으면, 결과에 포함
+            return tagList.some(tag => item.tags.includes(tag));
+          })
+          .sort((a, b) => {
+            // 조건 2: tag가 많이 일치하는 항목이 앞에 오도록 정렬
+            const countA = tagList.filter(tag => a.tags.includes(tag)).length;
+            const countB = tagList.filter(tag => b.tags.includes(tag)).length;
+            return countB - countA;
+          });
+   
+      
+        return filterContent;
+      };
+
+    const relatedContent = filterByTags(tags)
 
     return(
-        <div>
+        <RelatedContentContainer>
             <HeaderContainer>
                 <MeunText>관련 이미지</MeunText>
                 <MeunTextBar />
             </HeaderContainer>
-            <ContentList content={fakeContent} setDetail={setDetail}/>
-        </div>
+            <ContentList content={relatedContent} setDetail={setDetail}/>
+        </RelatedContentContainer>
     )
 }
 
+
+const RelatedContentContainer = styled.div`
+    margin-top: 53px;
+    height: 100%;
+    width: 713px;
+    background-color: white;
+    border-radius: 30px;
+
+    display: flex; // 부모 요소에게 높이 전달을 위해 flex 사용
+    flex-direction: column; // 자식 요소들이 세로로 정렬되도록
+`
 
 const HeaderContainer = styled.div`
     margin: 20px 0;
