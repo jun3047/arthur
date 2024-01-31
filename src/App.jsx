@@ -4,8 +4,6 @@ import {BookMarkPage} from './page/BookMarkPage';
 import {BookMarkDetailPage} from './page/BookMarkDetailPage';
 import { useEffect } from 'react';
 
-
-
 function App() {
 
   const fetchData = async () => {
@@ -37,9 +35,7 @@ function App() {
   };
 
   useEffect(() => {
-
     fetchData();
-
   }, []);
 
 
