@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import ContentList from "./ContentList"
+import ContentList, {RelatedContentList} from "./ContentList"
 import fakeData from '../constants.json';
 import {useEffect, useState} from "react"
 import { BookmarkToggle } from "./BookmarkToggle";
@@ -326,21 +326,24 @@ const RelatedContent = ({setDetail, tags}) => {
                 <MeunText>관련 이미지</MeunText>
                 <MeunTextBar />
             </HeaderContainer>
-            <ContentList content={relatedContent} setDetail={setDetail}/>
+            <RelatedContentList content={relatedContent} setDetail={setDetail}/>
         </RelatedContentContainer>
     )
 }
 
 
 const RelatedContentContainer = styled.div`
+    margin: 0 auto;
     margin-top: 53px;
     height: 100%;
-    width: 713px;
+    width: 585px;
     background-color: white;
     border-radius: 30px;
 
     display: flex; // 부모 요소에게 높이 전달을 위해 flex 사용
     flex-direction: column; // 자식 요소들이 세로로 정렬되도록
+    align-items: center; // 가로 중앙 정렬
+
 `
 
 const HeaderContainer = styled.div`
