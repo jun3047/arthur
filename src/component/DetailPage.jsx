@@ -4,8 +4,19 @@ import fakeData from '../constants.json';
 import {useEffect, useState} from "react"
 import { BookmarkToggle } from "./BookmarkToggle";
 import bookmarkIcon from '../asset/bookmark.svg'
+import { useRef } from 'react';
 
 export const DetailPage = ({detail, setDetail, nextContent, prevContent}) => {
+
+    const ref = useRef(null)
+
+    useEffect(() => {
+        ref.current.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });    
+    }, [detail])
 
     const close = () => setDetail(undefined)
 
@@ -13,7 +24,7 @@ export const DetailPage = ({detail, setDetail, nextContent, prevContent}) => {
 
     return (
         <BackgroundDark>
-            <DetailContainer>
+            <DetailContainer ref={ref}>
                 <DetailBox>
                     <DetailHeader nowContent={nowContent} close={close} />
                     <MainContent 
@@ -31,18 +42,26 @@ const BackgroundDark = styled.div`
     top: 0px;
     z-index: 2;
     width: 100vw;
+    height: 100vh;
     background: rgba(75, 77, 88, 0.91);
 
     position: fixed;
     display: flex;
+    overflow: hidden;
     justify-content: center;
     overscroll-behavior: contain;
 `
 
 
 const DetailContainer = styled.div`
+
     height: 100vh;
+    width: 100vw;
     z-index: 3;
+
+    margin: 0 auto;
+
+    background: rgba(75, 77, 88, 0.91);
     
     overflow-y: auto;
     overflow-x: hidden;
@@ -373,6 +392,7 @@ const MeunTextBar = styled.div`
 
 
 const DetailBox = styled.div`
+    margin: 0 auto;
     margin-top: 53px;
     width: 713px;
     background-color: white;
