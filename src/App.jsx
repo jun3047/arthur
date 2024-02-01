@@ -7,15 +7,20 @@ import { useCookies } from 'react-cookie'; // useCookies import
 
 function App() {
 
-  const [cookies, setCookie] = useCookies('id'); // useCookies hook
+  // const [cookies, setCookie] = useCookies('id'); // useCookies hook
 
-  const fetchData = async () => {    
-    console.log(cookies);
-  };
+  // const fetchBookmarkData = async () => {
 
-  useEffect(() => {
-      fetchData();
-  }, []);
+  //   if (cookies.id === undefined) {
+  //     console.log('id is undefined');
+  //   }
+
+  //   console.log(cookies.id);
+  // };
+
+  // useEffect(() => {
+  //     fetchData();
+  // }, []);
 
 
   return (
