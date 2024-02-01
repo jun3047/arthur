@@ -7,21 +7,10 @@ import { useCookies } from 'react-cookie'; // useCookies import
 
 function App() {
 
-  const [cookies, setCookie] = useCookies(['bookmark']); // useCookies hook
+  const [cookies, setCookie] = useCookies('id'); // useCookies hook
 
   const fetchData = async () => {    
-
-    if (cookies.bookmark === undefined) {
-      setCookie('bookmark', JSON.stringify([
-        {
-          "title": "모든 북마크",
-          "indexs": []
-        }
-      ]), { path: '/' });
-      console.log('없어서 만듬', cookies.bookmark)
-    } else {
-      console.log(cookies.bookmark);
-    }
+    console.log(cookies);
   };
 
   useEffect(() => {
