@@ -3,7 +3,7 @@ const fs = require('fs');
 const fetchTxtFile = async () => {
     try {
 
-      const inputFile = './meow.txt';
+      const inputFile = './db.txt';
       const response = fs.readFileSync(inputFile, 'utf-8');
 
       // 텍스트 파일의 내용을 읽어오기
@@ -27,15 +27,25 @@ const fetchTxtFile = async () => {
         const appearance = line2.split(':')[1].split('.').map(desc => desc.trim() + '.').slice(0, -1);
         const personality = line3.split(':')[1].split('.').map(desc => desc.trim() + '.').slice(0, -1);
 
-        result.push({
-          index: i,
-          detail: {
-            '외모 묘사': appearance,
-            '성격 묘사': personality,
-          },
-          tags: tags,
-          isBookmark: false,
-        });
+        const deflautData = {
+            detail: {
+              '외모 묘사': appearance,
+              '성격 묘사': personality,
+            },
+            tags: tags,
+            isBookmark: false,
+          }
+
+          for (let j = 0; j < 4; j++) {
+
+            const index = i + j
+            result.push({ index: index, ...deflautData});
+            result.push({ index: index+0.1, ...deflautData});
+            result.push({ index: index+0.2, ...deflautData});
+            result.push({ index: index+0.3, ...deflautData});
+          }
+
+
 
         i += 1;
         nowLine += 4;
