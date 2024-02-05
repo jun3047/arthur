@@ -15,7 +15,7 @@ export const NewBookmarkPage = ({setDetail}) => {
     }
     
     const addBookmark = () => {
-        fakeData['fakeBookmark'].push({title: bookmarkName, names: []})
+        fakeData['fakeBookmark'].push({title: bookmarkName, indexs: []})
         close()
         console.log("fakeBookmark:", fakeData['fakeBookmark']);
     }

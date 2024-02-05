@@ -1,6 +1,6 @@
 # Example usage
-input_file_path = '전처리5.txt'  # Replace with the actual input file path
-output_file_path = '전처리5_3.txt'  # Replace with the desired output file path
+input_file_path = './test.txt'  # Replace with the actual input file path
+output_file_path = 'test_결과.txt'  # Replace with the desired output file path
 
 with open(input_file_path, 'r', encoding='utf-8') as input_file, \
      open(output_file_path, 'w', encoding='utf-8') as output_file:
@@ -17,7 +17,7 @@ with open(input_file_path, 'r', encoding='utf-8') as input_file, \
         line = line.replace('선택된 태그들: ', '')
         line = line.replace('성격 묘사: ', '')
         line = line.replace('외모 묘사: ', '')
-        line = line.replace('[tags] ', '')
+        line = line.replace('[tags]: ', '')
         line = line.replace('몸매:', ',')
         line = line.replace('종족:', ',')
         line = line.replace('나이:', ',')
@@ -26,16 +26,17 @@ with open(input_file_path, 'r', encoding='utf-8') as input_file, \
         line = line.replace('스타일:', ',')
         line = line.replace('머리:', ',')
 
-        if '형식: [tags]' in line:
+        if '선택한 태그' in line:
             processing_mode = 'tags'
             output_file.write("\n\ntags:")
+            continue
 
-        elif '[answer1]' in line:
+        elif 'step 1' in line:
             processing_mode = 'answer1'
             output_file.write("\n성격묘사:")
             continue
 
-        elif '[answer2]' in line:
+        elif 'step 2' in line:
             processing_mode = 'answer2'
             output_file.write("\n외모묘사:")
             continue

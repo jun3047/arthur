@@ -36,16 +36,24 @@ const fetchTxtFile = async () => {
             isBookmark: false,
           }
 
-          for (let j = 0; j < 4; j++) {
+          
+        result.push({ index: i+0.01, ...deflautData});
+        result.push({ index: i+0.02, ...deflautData});
+        result.push({ index: i+0.03, ...deflautData});
+        result.push({ index: i+0.04, ...deflautData});
+        result.push({ index: i+0.05, ...deflautData});
+        result.push({ index: i+0.06, ...deflautData});
+        result.push({ index: i+0.07, ...deflautData});
+        result.push({ index: i+0.08, ...deflautData});
 
-            const index = i + j
-            result.push({ index: index, ...deflautData});
-            result.push({ index: index+0.1, ...deflautData});
-            result.push({ index: index+0.2, ...deflautData});
-            result.push({ index: index+0.3, ...deflautData});
-          }
-
-
+        result.push({ index: i+0.09, ...deflautData});
+        result.push({ index: i+0.10, ...deflautData});
+        result.push({ index: i+0.11, ...deflautData});
+        result.push({ index: i+0.12, ...deflautData});
+        result.push({ index: i+0.13, ...deflautData});
+        result.push({ index: i+0.14, ...deflautData});
+        result.push({ index: i+0.15, ...deflautData});
+        result.push({ index: i+0.16, ...deflautData});
 
         i += 1;
         nowLine += 4;

@@ -11,6 +11,6 @@ def remove_duplicate_sets_from_file(input_file, output_file):
             file.write(f"{unique_set}\n\n")
 
 # 사용 예
-input_file = '전처리_결과_통합.txt'
-output_file = '전처리_결과_통합_중복제거.txt'
+input_file = '600개_결과_통합본.txt'
+output_file = '600개_결과_통합본_중복제거.txt'
 remove_duplicate_sets_from_file(input_file, output_file)
