@@ -8,12 +8,12 @@ const useStore = create((set, get) => ({
     }],
     getBookmark: () => get().bookmark,
     setBookmark: (bookmark) => set(() => ({ bookmark })),
-    addBookmark: (title, indexes) => set((state) => {
-        const newBookmark = { title, indexes, version: 0 };
+    addBookmark: (title, indexs) => set((state) => {
+        const newBookmark = { title, indexs, version: 0 };
         return {
           bookmark: [...state.bookmark, newBookmark].map(bm => ({
             ...bm,
-            indexs: bm.title === title ? [...bm.indexs, ...indexes] : bm.indexs,
+            indexs: bm.title === title ? [...bm.indexs, ...indexs] : bm.indexs,
             version: bm.version + (bm.title === title ? 1 : 0)
           }))
         };
