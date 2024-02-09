@@ -29,6 +29,9 @@ const useStore = create((set, get) => ({
 }));
 
 useStore.subscribe((state) => {
+
+    console.log('state changed', state.bookmark);
+
     window.electronAPI.setStore('bookmark', state.bookmark);
   }, state => state.bookmark); // bookmark 상태에 대한 변경만 감지
 
