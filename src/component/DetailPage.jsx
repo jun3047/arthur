@@ -5,6 +5,7 @@ import {useEffect, useState} from "react"
 import { BookmarkToggle } from "./BookmarkToggle";
 import bookmarkIcon from '../asset/bookmark.svg'
 import { useRef } from 'react';
+import useStore from "../store/store";
 
 export const DetailPage = ({detail, setDetail, nextContent, prevContent}) => {
 
@@ -74,6 +75,8 @@ const DetailContainer = styled.div`
 
 const DetailHeader = ({close, nowContent}) => {
 
+    const {bookmark} = useStore()
+
     const initActive = () => fakeData['fakeBookmark']
         .find((bookmark) => bookmark.indexs.includes(nowContent.index))
 
@@ -136,7 +139,9 @@ const DetailHeaderContainer = styled.div`
 
 const BookmarkMeun = ({nowContent, onBookmark}) => {
 
-    const initBookmark = fakeData['fakeBookmark'][0]
+    const {bookmark} = useStore()
+
+    const initBookmark = bookmark[0]
     const [onBookmarkToggle, setOnBookmarkToggle] = useState(false)
 
     const bookmarkToggle = () => setOnBookmarkToggle(!onBookmarkToggle)

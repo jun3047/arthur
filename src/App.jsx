@@ -3,25 +3,19 @@ import {MainPage} from './page/MainPage';
 import {BookMarkPage} from './page/BookMarkPage';
 import {BookMarkDetailPage} from './page/BookMarkDetailPage';
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie'; // useCookies import
+import useStore from './store/store';
 
 function App() {
 
-  function saveData() {
-    window.electronAPI.setStore('unicorn', '🦄');
-  }
-  
-  async function loadData() {
-    const value = await window.electronAPI.getStore('unicorn');
-    console.log("value:", value); // 🦄
-  }
+  const { setBookmark } = useStore();
 
-  useEffect(() => {
-    console.log("window:", window);
-    console.log("window.electronAPI:", window.electronAPI);
-    saveData();
-    loadData();
-  }, []);
+  // useEffect(() => {
+  //   window.electronAPI.getStore('bookmark').then((loadedBookmark) => {
+  //     if (loadedBookmark) {
+  //       setBookmark(loadedBookmark);
+  //     }
+  //   });
+  // }, []);
   
   return (
     <Routes>

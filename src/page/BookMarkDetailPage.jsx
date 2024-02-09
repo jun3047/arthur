@@ -7,6 +7,7 @@ import {DetailPage} from "../component/DetailPage"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {NewBookmarkPage} from "../component/NewBookmarkPage"
+import useStore from '../store/store';
 import fakeData from '../constants.json';
 
 export const BookMarkDetailPage = () => {
@@ -18,7 +19,9 @@ export const BookMarkDetailPage = () => {
   const [newBookmark, setNewBookmark] = useState(false)
   const makeNewBookmark = () => setNewBookmark(true)
 
-  const nowBookmark = fakeData['fakeBookmark'].find((item) => item.title === title)
+  const { bookmark } = useStore();
+
+  const nowBookmark = bookmark.find((item) => item.title === title)
   const bookmarkContent = fakeData['fakeContent'].filter((item) => nowBookmark.indexs.includes(item.index))
 
   return (

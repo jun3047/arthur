@@ -1,13 +1,15 @@
 import styled from "styled-components"
-import fakeData from '../constants.json';
+import useStore from '../store/store';
 
 export const BookmarkToggle = ({nowContent, onBookmark}) => {
+
+    const {bookmark} = useStore()
 
     return (
         <BookmarkToggleContainer>
             <BookmarkToggleText>내 북마크</BookmarkToggleText>
             {
-                fakeData['fakeBookmark'].map((item, index) => {
+                bookmark.map((item, index) => {
 
                     return (
                         <BookmarkToggleItem 
@@ -134,18 +136,18 @@ const BookmarkToggleItemPlusBtnContainer = styled.div`
 
 const BookmarkToggleItemPlusBtn = ({title, nowContent, onBookmark}) => {
 
+    const {bookmark} = useStore()
+
     const addBookmark = () => {
-        fakeData['fakeBookmark'].
+        bookmark.
         find(item => item.title === title).indexs.
         push(nowContent.index)
 
-        fakeData['fakeBookmark'].
+        bookmark.
         find(item => item.title === title).isBookmark = true
         
         onBookmark()
     }
-
-            
 
     return (
             <BookmarkToggleItemPlusBtnContainer

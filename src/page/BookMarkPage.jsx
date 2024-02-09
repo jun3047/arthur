@@ -3,14 +3,16 @@ import {Header} from "../component/SearchHeader"
 import {BookMarkHeader} from "../component/BookMarkHeader"
 import {NewBookmarkPage} from "../component/NewBookmarkPage"
 import {useNavigate} from "react-router-dom"
-import fakeData from '../constants.json';
 import {useState} from "react"
+import useStore from "../store/store"
 
 export const BookMarkPage = () => {
 
   const navigation = useNavigate()
   const [newBookmark, setNewBookmark] = useState(false)
   const makeNewBookmark = () => setNewBookmark(true)
+
+  const {bookmark} = useStore();
 
   return (
     <PageContainer>
@@ -20,7 +22,7 @@ export const BookMarkPage = () => {
         makeNewBookmark={makeNewBookmark}
       />
       {newBookmark && <NewBookmarkPage setDetail={setNewBookmark}/>}
-      <BookmarkList bookmark={fakeData['fakeBookmark']} />
+      <BookmarkList bookmark={bookmark} />
     </PageContainer>
   )
 }

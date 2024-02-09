@@ -1,23 +1,22 @@
 import styled from "styled-components"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import fakeData from '../constants.json';
-
+import useStore from "../store/store"
 
 export const NewBookmarkPage = ({setDetail}) => {
 
     const [bookmarkName, setBookmarkName] = useState('')
     const navigation = useNavigate()
+    const { addBookmark } = useStore()
 
     const close = () => {
         setDetail(undefined)
         navigation('/bookmark')
     }
     
-    const addBookmark = () => {
-        fakeData['fakeBookmark'].push({title: bookmarkName, indexs: []})
+    const _addBookmark = () => {
+        addBookmark(bookmarkName, [])
         close()
-        console.log("fakeBookmark:", fakeData['fakeBookmark']);
     }
     
     return (
@@ -31,8 +30,7 @@ export const NewBookmarkPage = ({setDetail}) => {
                         value={bookmarkName}
                         onChange={(e)=>setBookmarkName(e.target.value)}
                     />
-                    <BookmarkSaveBtn onClick={addBookmark}
-                        >만들기
+                    <BookmarkSaveBtn onClick={_addBookmark}>만들기
                     </BookmarkSaveBtn>
                 </DetailBox>
             </DetailContainer>
