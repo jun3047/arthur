@@ -77,7 +77,7 @@ const DetailHeader = ({close, nowContent}) => {
 
     const {bookmark} = useStore()
 
-    const initActive = () => fakeData['fakeBookmark']
+    const initActive = () => bookmark
         .find((bookmark) => bookmark.indexs.includes(nowContent.index))
 
     const [active, setActive] = useState(initActive)
