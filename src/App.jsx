@@ -9,13 +9,13 @@ function App() {
 
   const { setBookmark } = useStore();
 
-  // useEffect(() => {
-  //   window.electronAPI.getStore('bookmark').then((loadedBookmark) => {
-  //     if (loadedBookmark) {
-  //       setBookmark(loadedBookmark);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    window.electronAPI.getStore('bookmark').then((loadedBookmark) => {
+      if (loadedBookmark) {
+        setBookmark(loadedBookmark);
+      }
+    });
+  }, []);
   
   return (
     <Routes>
