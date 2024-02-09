@@ -8,9 +8,16 @@ const useStore = create((set, get) => ({
     }],
     getBookmark: () => get().bookmark,
     setBookmark: (bookmark) => set(() => ({ bookmark })),
-    addBookmark: (title, indexs) => set((state) => ({
-        bookmark: [...state.bookmark, { title, indexs, version: 0 }] // 새 북마크 추가 시 초기 버전 설정
-    })),
+    addBookmark: (title, indexes) => set((state) => {
+        const newBookmark = { title, indexes, version: 0 };
+        return {
+          bookmark: [...state.bookmark, newBookmark].map(bm => ({
+            ...bm,
+            indexs: bm.title === title ? [...bm.indexs, ...indexes] : bm.indexs,
+            version: bm.version + (bm.title === title ? 1 : 0)
+          }))
+        };
+      }),      
     deleteBookmarkByIndex: (title, index) => set((state) => ({
         bookmark: state.bookmark.map((mark) =>
             mark.title === title ? {
@@ -31,7 +38,6 @@ const useStore = create((set, get) => ({
 useStore.subscribe((state) => {
 
     console.log('state changed', state.bookmark);
-
     window.electronAPI.setStore('bookmark', state.bookmark);
   }, state => state.bookmark); // bookmark 상태에 대한 변경만 감지
 
