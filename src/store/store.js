@@ -9,24 +9,30 @@ const useStore = create((set, get) => ({
     getBookmark: () => get().bookmark,
     setBookmark: (bookmark) => set(() => ({ bookmark })),
     addBookmark: (title, indexs) => set((state) => {
-        const newBookmark = { title, indexs, version: 0 };
-        return {
-          bookmark: [...state.bookmark, newBookmark].map(bm => ({
-            ...bm,
-            indexs: bm.title === title ? [...bm.indexs, ...indexs] : bm.indexs,
-            version: bm.version + (bm.title === title ? 1 : 0)
-          }))
-        };
-      }),      
-    deleteBookmarkByIndex: (title, index) => set((state) => ({
-        bookmark: state.bookmark.map((mark) =>
-            mark.title === title ? {
-                ...mark,
-                indexs: mark.indexs.filter((idx) => idx !== index),
-                version: mark.version + 1 // 인덱스 변경 시 버전 증가
-            } : mark
-        )
-    })),    
+
+      const newBookmark = {bookmark: [...state.bookmark, { title, indexs, version: 0 }]}
+      window.electronAPI.setStore('bookmark', newBookmark);
+
+      return ({
+        newBookmark
+        })}
+    ),
+    deleteBookmarkByIndex: (title, index) => set((state) => {
+
+      const newBookmark = {bookmark: state.bookmark.map((mark) =>
+              mark.title === title ? {
+                  ...mark,
+                  indexs: mark.indexs.filter((idx) => idx !== index),
+                  version: mark.version + 1 // 인덱스 변경 시 버전 증가
+              } : mark
+          )}
+
+      window.electronAPI.setStore('bookmark', newBookmark);
+
+      return ({
+        newBookmark
+      })
+    }),    
     deleteBookmarkByTitle: (title) => set((state) => ({
         bookmark: state.bookmark.filter((bookmark) => bookmark.title !== title).map((mark) => ({
             ...mark,
@@ -37,7 +43,6 @@ const useStore = create((set, get) => ({
 
 useStore.subscribe((state) => {
 
-    console.log('state changed', state.bookmark);
     window.electronAPI.setStore('bookmark', state.bookmark);
   }, state => state.bookmark); // bookmark 상태에 대한 변경만 감지
 
