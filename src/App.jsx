@@ -12,6 +12,9 @@ function App() {
   useEffect(() => {
     window.electronAPI.getStore('bookmark').then((loadedBookmark) => {
 
+      window.electronAPI.logStore('bookmark')
+      window.electronAPI.logStore(loadedBookmark)
+
       console.log('loadedBookmark', loadedBookmark);
 
       if (loadedBookmark) {
