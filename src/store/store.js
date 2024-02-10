@@ -1,11 +1,7 @@
 import {create} from 'zustand';
 
 const useStore = create((set, get) => ({
-    bookmark: [{
-        title: '모든 북마크',
-        indexs: [],
-        version: 0 // 초기 버전 번호 추가
-    }],
+    bookmark: undefined,
     getBookmark: () => get().bookmark,
     setBookmark: (bookmark) => set(() => {
       
@@ -46,9 +42,27 @@ const useStore = create((set, get) => ({
   }),
 }));
 
-useStore.subscribe((state) => {
 
-    window.electronAPI.setStore('bookmark', state.bookmark);
+useStore.subscribe(async (state) => {
+    
+    if (state.bookmark !== undefined){
+      window.electronAPI.setStore('bookmark', state.bookmark);
+    }
+
+    const myBookmark = await window.electronAPI.getStore('bookmark')
+
+    if (myBookmark !== undefined){
+      state.setBookmark(myBookmark);
+    } else {
+      state.setBookmark({bookmark: [
+        {
+          title: '모든 북마크',
+          indexs: [],
+          version: 0 // 초기 버전 번호 추가
+        }
+      ]});
+    }
+
   }, state => state.bookmark); // bookmark 상태에 대한 변경만 감지
 
 export default useStore;
