@@ -77,22 +77,20 @@ const BookmarkList = ({bookmark}) => {
 const BookmarkListContainer = styled.div`
 
     margin: 0 auto;
-    width: auto;
-    padding-left: 30px;
+    width: calc(325px*3);
     margin-top: 29px;
     display: flex;
     flex-wrap: wrap;
 
-    @media (max-width: 768px) {
-
+    @media (max-width: 980px) {
+      width: calc(325px*2);
     }
 `
 
 const BookmarkItemWrapper = styled.div`
 
     width: 295px;
-    margin-right: 30px;
-    margin-bottom: 30px;
+    margin: 15px;
 
     @media (max-width: 768px) {
 

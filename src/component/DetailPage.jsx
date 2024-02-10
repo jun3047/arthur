@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import ContentList, {RelatedContentList} from "./ContentList"
+import {RelatedContentList} from "./ContentList"
 import fakeData from '../constants.json';
 import {useEffect, useState} from "react"
 import { BookmarkToggle } from "./BookmarkToggle";
