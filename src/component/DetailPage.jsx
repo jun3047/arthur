@@ -81,10 +81,14 @@ const DetailHeader = ({close, nowContent}) => {
 
     const {bookmark} = useStore()
 
-    const initActive = () => bookmark
+    const calculateActive = () => bookmark
         .find((bookmark) => bookmark.indexs.includes(nowContent.index))
 
-    const [active, setActive] = useState(initActive)
+    const [active, setActive] = useState(calculateActive)
+
+    useEffect(() => {
+        setActive(calculateActive());
+    }, [nowContent, bookmark]);
 
     const onBookmark = () => setActive(true)
 
