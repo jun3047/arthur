@@ -136,23 +136,11 @@ const BookmarkToggleItemPlusBtnContainer = styled.div`
 
 const BookmarkToggleItemPlusBtn = ({title, nowContent, onBookmark}) => {
 
-    const {bookmark} = useStore()
+    const {bookmark, updateBookmark} = useStore()
 
     const addBookmark = () => {
-        
-        bookmark.
-        find(item => item.title === title).indexs.
-        push(nowContent.index)
 
-        bookmark.
-        find(item => item.title === title).isBookmark = true
-
-        if(title !== '모든 북마크') {
-            bookmark.
-            find(item => item.title === '모든 북마크').indexs.
-            push(nowContent.index)
-        }
-        
+        updateBookmark(title, nowContent)        
         onBookmark()
     }
 

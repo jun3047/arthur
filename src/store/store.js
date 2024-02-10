@@ -21,6 +21,29 @@ const useStore = create((set, get) => ({
         return newBookmark
       }
     ),
+    updateBookmark: (title, nowContent) => set((state) => {
+
+        const _bookmark = state.bookmark
+
+        _bookmark.
+        find(item => item.title === title).indexs.
+        push(nowContent.index)
+
+        _bookmark.
+        find(item => item.title === title).isBookmark = true
+
+        if(title !== '모든 북마크') {
+          _bookmark.
+            find(item => item.title === '모든 북마크').indexs.
+            push(nowContent.index)
+        }
+
+        const newBookmark = {bookmark: _bookmark}
+  
+        window.electronAPI.setStore('bookmark', newBookmark);
+        return newBookmark
+      }
+    ),
     deleteBookmarkByIndex: (title, index) => set((state) => {
 
       const newBookmark = {bookmark: state.bookmark.map((mark) =>
