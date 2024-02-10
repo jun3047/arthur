@@ -7,7 +7,7 @@ import useStore from './store/store';
 
 function App() {
 
-  const { setBookmark } = useStore();
+  const { setBookmark, getBookmark } = useStore();
 
   useEffect(() => {
     window.electronAPI.getStore('bookmark').then((loadedBookmark) => {
@@ -18,7 +18,12 @@ function App() {
       console.log('loadedBookmark', loadedBookmark);
 
       if (loadedBookmark) {
-        setBookmark(loadedBookmark);
+        
+        const value = setBookmark(loadedBookmark);
+
+        window.electronAPI.logStore('edit_bookmark')
+        window.electronAPI.logStore(value)
+
       }
     });
   }, []);
