@@ -11,17 +11,21 @@ export const DetailPage = ({detail, setDetail, nextContent, prevContent}) => {
 
     const ref = useRef(null)
 
+    const initContent = fakeData['fakeContent'].find((item) => item.index === detail.index)
+    const [nowContent, setNowContent] = useState(initContent)
+
     useEffect(() => {
         ref.current.scrollTo({
             top: 0,
             left: 0,
             behavior: 'smooth'
-        });    
+        });
+
+        setNowContent(fakeData['fakeContent'].find((item) => item.index === detail.index))
     }, [detail])
 
     const close = () => setDetail(undefined)
 
-    const nowContent = fakeData['fakeContent'].find((item) => item.index === detail.index)
 
     return (
         <BackgroundDark>
