@@ -3,7 +3,7 @@ const fs = require('fs');
 const fetchTxtFile = async () => {
     try {
 
-      const inputFile = './db.txt';
+      const inputFile = './600개_결과_통합본_중복제거.txt';
       const response = fs.readFileSync(inputFile, 'utf-8');
 
       // 텍스트 파일의 내용을 읽어오기
