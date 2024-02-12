@@ -54,7 +54,7 @@ export const MainPage = () => {
   
   const [detail, setDetail] = useState(undefined)
   const [filter, setFilter] = useState(false)
-  const [content, setContent] = useState(fakeData['fakeContent'])
+  const [content, setContent] = useState(shuffleArray(fakeData['fakeContent']))
 
   const handleSearch = (searchTerm) => {
     const searchResults = searchInJsonData(fakeData['fakeContent'], searchTerm);
