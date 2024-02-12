@@ -37,23 +37,23 @@ const fetchTxtFile = async () => {
           }
 
           
-        result.push({ index: i+0.01, ...deflautData});
-        result.push({ index: i+0.02, ...deflautData});
-        result.push({ index: i+0.03, ...deflautData});
-        result.push({ index: i+0.04, ...deflautData});
-        result.push({ index: i+0.05, ...deflautData});
-        result.push({ index: i+0.06, ...deflautData});
-        result.push({ index: i+0.07, ...deflautData});
-        result.push({ index: i+0.08, ...deflautData});
+        result.push({ index: i.toString() + '.01', ...deflautData});
+        result.push({ index: i.toString() + '.02', ...deflautData});
+        result.push({ index: i.toString() + '.03', ...deflautData});
+        result.push({ index: i.toString() + '.04', ...deflautData});
+        result.push({ index: i.toString() + '.05', ...deflautData});
+        result.push({ index: i.toString() + '.06', ...deflautData});
+        result.push({ index: i.toString() + '.07', ...deflautData});
+        result.push({ index: i.toString() + '.08', ...deflautData});
 
-        result.push({ index: i+0.09, ...deflautData});
-        result.push({ index: i+0.10, ...deflautData});
-        result.push({ index: i+0.11, ...deflautData});
-        result.push({ index: i+0.12, ...deflautData});
-        result.push({ index: i+0.13, ...deflautData});
-        result.push({ index: i+0.14, ...deflautData});
-        result.push({ index: i+0.15, ...deflautData});
-        result.push({ index: i+0.16, ...deflautData});
+        result.push({ index: i.toString() + '.09', ...deflautData});
+        result.push({ index: i.toString() + '.10', ...deflautData});
+        result.push({ index: i.toString() + '.11', ...deflautData});
+        result.push({ index: i.toString() + '.12', ...deflautData});
+        result.push({ index: i.toString() + '.13', ...deflautData});
+        result.push({ index: i.toString() + '.14', ...deflautData});
+        result.push({ index: i.toString() + '.15', ...deflautData});
+        result.push({ index: i.toString() + '.16', ...deflautData});
 
         i += 1;
         nowLine += 4;
