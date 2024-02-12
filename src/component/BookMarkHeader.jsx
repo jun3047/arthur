@@ -6,9 +6,9 @@ export const BookMarkHeader = ({title, BackBtnHandler, makeNewBookmark}) => {
 
     return (
         <HeaderContainer>
-            <BackBtn src="/back.png" onClick={BackBtnHandler}/>
+            <BackBtn src="/back.svg" onClick={BackBtnHandler}/>
             <MeunText>{mainTitle}</MeunText>
-            <PlusBtn src="/plus.png" onClick={makeNewBookmark}/>
+            <PlusBtn src="/plus.svg" onClick={makeNewBookmark}/>
             <MeunTextBar />
         </HeaderContainer>
     )

@@ -40,7 +40,7 @@ const FilterBox = ({offFilter, filterBtnHandler}) => {
         <FilterBoxContainer>
             <FitlerBoxHeader>
                 <FitlerBoxTitle>필터</FitlerBoxTitle>
-                <BackBtn src="/back.png" onClick={offFilter}/>
+                <BackBtn src="/back.svg" onClick={offFilter}/>
             </FitlerBoxHeader>
             <FilterBoxItemWrapper>
             {
@@ -102,7 +102,7 @@ const FilterBoxItem = ({item, handleTagClick, nowTags}) => {
     return (
         <FilterBoxItemContainer isOpen={isItemOpen}>
             <FilterBoxItemTitle onClick={()=>setIsItemOpen(!isItemOpen)}>
-                <ToggleBtn open={isItemOpen} src="/toggle.png"/>
+                <ToggleBtn open={isItemOpen} src="/toggle.svg"/>
                 {item.name}
             </FilterBoxItemTitle>
             <FilterBoxItemBox remainder={item.children.length % 3}>
