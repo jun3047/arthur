@@ -157,7 +157,7 @@ const BookmarkMeun = ({nowContent, onBookmark}) => {
     return (
         <BookmarkContainer active={onBookmarkToggle} onClick={bookmarkToggle}>
             <BookmarkText>{initBookmark.title}</BookmarkText>
-            <BookmarkIcon src="/bookmark_more.png"/>
+            <BookmarkIcon src="/bookmark_more.svg"/>
             {
                 onBookmarkToggle &&
                 <BookmarkToggle 
@@ -226,7 +226,7 @@ const Xbtn = styled.img`
 
 const MainContent = ({detail, nextContent, prevContent}) => {
 
-    const imgUrl = '/' + detail.index.toString() + '.png'
+    const imgUrl = '/webp/' + detail.index.toString() + '.webp'
     const keys = Object.keys(detail.detail);
     
     return (

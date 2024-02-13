@@ -10,7 +10,7 @@ const ContentList = ({content, setDetail}) => {
                 return (
                     <BlackBackground>
                         <ContentImgBox
-                            src={ '/'+ item.index + '.png'} alt="예시 이미지" 
+                            src={ '/webp/'+ item.index + '.webp'} alt="예시 이미지" 
                             onClick={(e)=>{
                                 e.preventDefault()
                                 setDetail(item)
@@ -33,7 +33,7 @@ export const RelatedContentList = ({content, setDetail}) => {
                 return (
                     <RelatedBlackBackground>
                         <ContentImgBox
-                            src={ '/'+ item.index + '.png'} alt="예시 이미지" 
+                            src={ '/webp/'+ item.index + '.webp'} alt="예시 이미지" 
                             onClick={(e)=>{
                                 e.preventDefault()
                                 setDetail(item)

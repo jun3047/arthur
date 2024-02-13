@@ -52,7 +52,7 @@ const BookmarkList = ({bookmark}) => {
                     navigation('/bookmark/' + item.title)          
                   }}
                   key={index} 
-                  src={'/' + item.indexs[0].toString() + '.png'}
+                  src={'/webp/' + item.indexs[0].toString() + '.webp'}
                   item={item}
                 />:
                 <EntpyBookmarkItem
