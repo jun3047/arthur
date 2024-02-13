@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+// 여기서에서 fittering을 해야함  -> 1. 제외하는 사진 제거 2. 없애는 사진 제거 3. 그림체에 따른 태그 추가
+
 const fetchTxtFile = async () => {
     try {
 
