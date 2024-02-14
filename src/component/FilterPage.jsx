@@ -3,12 +3,14 @@ import { useState } from "react"
 import fakeData from '../constants.json';
 
 
-const FilterPage = ({offFilter, filterBtnHandler}) => {
+const FilterPage = ({offFilter, filterBtnHandler, getFilterN}) => {
     return (
         <FilterContainer>
             <FilterBox 
                 filterBtnHandler={filterBtnHandler} 
-                offFilter={offFilter}/>
+                offFilter={offFilter}
+                getFilterN={getFilterN}
+            />
         </FilterContainer>
     )
 }
@@ -24,7 +26,7 @@ const FilterContainer = styled.div`
 
 const FilterBoxList = fakeData['fakeFilter']
 
-const FilterBox = ({offFilter, filterBtnHandler}) => {
+const FilterBox = ({offFilter, filterBtnHandler, getFilterN}) => {
 
     const [tags, setTags] = useState([])
     
@@ -57,7 +59,7 @@ const FilterBox = ({offFilter, filterBtnHandler}) => {
             }
             </FilterBoxItemWrapper>
             <FitlerBtn onClick={()=>filterBtnHandler(tags)}>
-                N개의 결과보기
+                {`${getFilterN(tags)}개의 결과보기`}
             </FitlerBtn>
         </FilterBoxContainer>
     )
