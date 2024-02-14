@@ -29,13 +29,15 @@ function searchInJsonData(jsonData, searchString) {
 
   // 검색 대상인 'detail' 속성을 갖고 있는 항목을 찾음
   for (const item of jsonData) {
-    const detail = item.detail;
 
+    const detail = item.detail;
+    
     // '외모 묘사', '성격 묘사', '표정 묘사'에서 검색
     for (const key in detail) {
-      if (detail[key].includes(searchString)) {
-        results.push(item);
-        break; // 한 번이라도 찾았으면 더이상 같은 항목에서 검색하지 않음
+      for (const des in detail[key]) {
+        if (detail[key][des].includes(searchString)) {
+          results.push(item);
+        }
       }
     }
 
