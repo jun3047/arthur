@@ -35,8 +35,11 @@ function searchInJsonData(jsonData, searchString) {
     // '외모 묘사', '성격 묘사', '표정 묘사'에서 검색
     for (const key in detail) {
       for (const des in detail[key]) {
-        if (detail[key][des].includes(searchString)) {
-          results.push(item);
+        
+        for (const serarhKeyword of searchString.split(' ')) {
+          if (detail[key][des].includes(serarhKeyword)) {
+            results.push(item);
+          }
         }
       }
     }
