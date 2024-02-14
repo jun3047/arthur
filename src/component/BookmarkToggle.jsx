@@ -68,7 +68,7 @@ const BookmarkToggleItem = ({item, nowContent, onBookmark}) => {
             {
                 indexs.length === 0 ? 
                 <BookmarkToggleItemImgEmtpy /> :
-                <BookmarkToggleItemImg src={ '/' + indexs[0].toString() + '.png'}/> 
+                <BookmarkToggleItemImg src={ '/webp/' + indexs[0].toString() + '.webp'}/> 
             }
             <BookmarkToggleItemText>{title}</BookmarkToggleItemText>
             <StrengthBox />
