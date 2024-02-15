@@ -5,7 +5,7 @@ import {MenuHeader} from "../component/MenuHeader"
 import ContentList from "../component/ContentList"
 import {DetailPage} from "../component/DetailPage"
 import FilterPage from "../component/FilterPage"
-import {useEffect, useState} from "react"
+import {useEffect, useState, useRef} from "react"
 import fakeData from '../constants.json';
 
 
@@ -59,7 +59,34 @@ export const MainPage = () => {
   
   const [detail, setDetail] = useState(undefined)
   const [filter, setFilter] = useState(false)
-  const [content, setContent] = useState(fakeData['fakeContent'])
+
+  const [allContent, setAllContent] = useState(fakeData['fakeContent'])
+  const [content, setContent] = useState(allContent.slice(0, 30)); // 초기 데이터 로드
+  const [hasMore, setHasMore] = useState(true); // 더 로드할 데이터가 있는지 상태
+
+  const ref = useRef(null);
+
+  useEffect(() => {
+    ref.current.scrollTo({
+        top: 0,
+        left: 0,
+    });
+  }, [allContent])
+
+  // 더 많은 콘텐츠를 불러오는 함수
+  const fetchMoreData = () => {
+
+    console.log("setAllContent:", allContent)
+    console.log("content:", content)
+
+    if (content.length >= allContent.length) {
+      setHasMore(false); // 모든 데이터를 로드했으면 hasMore을 false로 설정
+      return;
+    }
+
+    setContent(content.concat(allContent.slice(content.length, content.length + 20)));
+  };
+
 
   const handleSearch = (searchTerm) => {
     const searchResults = searchInJsonData(fakeData['fakeContent'], searchTerm);
@@ -78,8 +105,10 @@ export const MainPage = () => {
         const countB = tagList.filter(tag => b.tags.includes(tag)).length;
         return countB - countA;
       });
-  
-    setContent(filterContent);
+
+    setAllContent(filterContent);
+    setContent(filterContent.slice(0, 30));
+    setHasMore(true);
   };
 
   //현재 item의 인덱스를 content에서 몇번째인지 찾아서 반환
@@ -113,7 +142,7 @@ export const MainPage = () => {
   
 
   return (
-    <PageContainer>
+    <PageContainer ref={ref}>
       <Header handleSearch={handleSearch}/>
       <MenuHeader />
        <FilterBtn onFilter={()=>setFilter(true)}/>
@@ -140,7 +169,7 @@ export const MainPage = () => {
             return filterContent.length
           }}
         />)}
-      <ContentList content={content} setDetail={setDetail}/>
+      <ContentList content={content} setDetail={setDetail} fetchMoreData={fetchMoreData} hasMore={hasMore} />
       {detail && (
         <DetailPage
           detail={detail}
@@ -154,7 +183,7 @@ export const MainPage = () => {
 
 
 const PageContainer = styled.div`
-  height: calc(100vh - 145px);
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;

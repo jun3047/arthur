@@ -346,6 +346,10 @@ const RelatedContent = ({setDetail, tags}) => {
             return countB - countA;
           });
    
+        // 조건 3: 결과가 30개 이상이면, 30개로 제한
+        if (filterContent.length > 30) {
+            return filterContent.slice(0, 30);
+          }
       
         return filterContent;
       };
