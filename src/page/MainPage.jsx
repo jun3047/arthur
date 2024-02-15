@@ -5,7 +5,7 @@ import {MenuHeader} from "../component/MenuHeader"
 import ContentList from "../component/ContentList"
 import {DetailPage} from "../component/DetailPage"
 import FilterPage from "../component/FilterPage"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import fakeData from '../constants.json';
 
 
@@ -59,7 +59,7 @@ export const MainPage = () => {
   
   const [detail, setDetail] = useState(undefined)
   const [filter, setFilter] = useState(false)
-  const [content, setContent] = useState(shuffleArray(fakeData['fakeContent']))
+  const [content, setContent] = useState(fakeData['fakeContent'])
 
   const handleSearch = (searchTerm) => {
     const searchResults = searchInJsonData(fakeData['fakeContent'], searchTerm);
@@ -154,7 +154,7 @@ export const MainPage = () => {
 
 
 const PageContainer = styled.div`
-  height: 100%;
+  height: calc(100vh - 145px);
   display: flex;
   align-items: center;
   justify-content: center;
