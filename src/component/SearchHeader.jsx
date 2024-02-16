@@ -41,7 +41,6 @@ const HeaderContainer = styled.div`
 const Logo = styled.img`
     width: 217px;
     min-width: 217px;
-    height: 100%;
     margin-right: 27px;
 
     &:hover {

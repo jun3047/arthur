@@ -18,7 +18,6 @@ export const DetailPage = ({detail, setDetail, nextContent, prevContent}) => {
         ref.current.scrollTo({
             top: 0,
             left: 0,
-            behavior: 'smooth'
         });
 
         setNowContent(fakeData['fakeContent'].find((item) => item.index === detail.index))
@@ -45,7 +44,7 @@ export const DetailPage = ({detail, setDetail, nextContent, prevContent}) => {
 }
 const BackgroundDark = styled.div`
     top: 0px;
-    z-index: 2;
+    z-index: 4;
     width: 100vw;
     height: 100vh;
     background: rgba(75, 77, 88, 0.91);
@@ -210,8 +209,8 @@ const BookmarkText = styled.div`
 
 
 const BookmarkIcon = styled.img`
-    width: 6px;
-    height: 3px;
+    width: 12px;
+    height: 6px;
 `
 
 const Xbtn = styled.img`
