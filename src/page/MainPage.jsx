@@ -139,35 +139,36 @@ export const MainPage = () => {
       setDetail(content[index - 1])
     }
   }
+
+  const getFilterN = (tagList) => {
+    const filterContent = fakeData['fakeContent']
+    .filter((item) => {
+      // 조건 1: tag 하나라도 있으면, 결과에 포함
+      return tagList.some(tag => item.tags.includes(tag));
+    })
+    .sort((a, b) => {
+      // 조건 2: tag가 많이 일치하는 항목이 앞에 오도록 정렬
+      const countA = tagList.filter(tag => a.tags.includes(tag)).length;
+      const countB = tagList.filter(tag => b.tags.includes(tag)).length;
+      return countB - countA;
+    });
+    
+  return filterContent.length
+  }
   
 
   return (
     <PageContainer ref={ref}>
       <Header handleSearch={handleSearch}/>
       <MenuHeader />
-       <FilterBtn onFilter={()=>setFilter(true)}/>
+       <FilterBtn onFilter={()=>setFilter(!filter)} active={filter}/>
        {filter && (
         <FilterPage
           offFilter={()=>setFilter(false)}
           filterBtnHandler={(tagList)=>{
               filterByTags(tagList)
-              setFilter(false)
             }}
-          getFilterN = {(tagList) => {
-            const filterContent = fakeData['fakeContent']
-              .filter((item) => {
-                // 조건 1: tag 하나라도 있으면, 결과에 포함
-                return tagList.some(tag => item.tags.includes(tag));
-              })
-              .sort((a, b) => {
-                // 조건 2: tag가 많이 일치하는 항목이 앞에 오도록 정렬
-                const countA = tagList.filter(tag => a.tags.includes(tag)).length;
-                const countB = tagList.filter(tag => b.tags.includes(tag)).length;
-                return countB - countA;
-              });
-              
-            return filterContent.length
-          }}
+          getFilterN = {getFilterN}
         />)}
       <ContentList content={content} setDetail={setDetail} fetchMoreData={fetchMoreData} hasMore={hasMore} />
       {detail && (
@@ -185,14 +186,14 @@ export const MainPage = () => {
 const PageContainer = styled.div`
   height: auto;
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
 `
 
-const FilterBtn = ({onFilter}) => {
+const FilterBtn = ({onFilter, active}) => {
+
   return (
-      <FilterContainer onClick={onFilter}>
+      <FilterContainer onClick={onFilter} active={active}>
           <EquilzerIcon />
           <FilterText>필터</FilterText>
       </FilterContainer>
@@ -235,10 +236,17 @@ const FilterContainer = styled.div`
       left: auto;
   }
 
-  &:hover {
-        cursor: pointer;
-        background-color: #C8C8C8;
-  }
+  ${props => props.active && `
+    background-color: #000000;
+    
+    img {
+      filter: brightness(0) invert(1);
+    }
+    
+    div {
+      color: #ffffff;
+    }
+  `}
 
   &:active {
     background-color: #000000; /* 눌린 상태일 때의 색상 */
@@ -248,7 +256,20 @@ const FilterContainer = styled.div`
     }
     
     div {
-      color: #ffffff;
+      color: #5B5B5B;
     }
+  }
+  
+  &:hover {
+      cursor: pointer;
+      background-color: #C8C8C8;
+
+      img {
+        filter: none;
+      }
+
+      div {
+        color: #5B5B5B;
+      }
   }
 `

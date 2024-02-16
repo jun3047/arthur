@@ -1,9 +1,97 @@
 import styled from "styled-components"
 import { useState } from "react"
 import fakeData from '../constants.json';
+import { useEffect } from "react";
 
+
+export const BigFilterPage = ({filterBtnHandler, getFilterN}) => {
+    return (
+        <BigFilterBox
+            filterBtnHandler={filterBtnHandler} 
+            getFilterN={getFilterN}
+        />
+    )
+}
+
+const BigFilterBox = ({filterBtnHandler, getFilterN}) => {
+
+    const [tags, setTags] = useState([])
+    
+    const handleTagClick = (tag) => {
+
+        const isTagSelected = tags.includes(tag);
+    
+        if (isTagSelected) setTags(tags.filter(selectedTag => selectedTag !== tag));
+        else setTags([...tags, tag]);
+    };
+
+    return (
+        <BigFilterBoxContainer>
+            <BigFilterBoxContainerInner>
+                <FilterBoxItemWrapper>
+                {
+                    FilterBoxList.map((item, index) => {
+                        return (
+                            <FilterBoxItem
+                                nowTags={tags}
+                                handleTagClick={handleTagClick}
+                                item={item}
+                                key={index}
+                            />
+                        )
+                    })
+                }
+                </FilterBoxItemWrapper>
+                <FitlerBtn onClick={()=>filterBtnHandler(tags)}>
+                    {`${getFilterN(tags)}개의 결과보기`}
+                </FitlerBtn>
+            </BigFilterBoxContainerInner>
+        </BigFilterBoxContainer>
+    )
+}
+
+const BigFilterBoxContainerInner = styled.div`
+
+    left: 0;
+    position: fixed;
+    top: 145;
+    width: 388px;
+    height: calc(100vh - 145px);
+    background-color: white;
+    scroll-behavior: contain;
+    overflow-y: auto;
+`
 
 const FilterPage = ({offFilter, filterBtnHandler, getFilterN}) => {
+
+    const BIGWIDTH = 1360;
+
+    const [isBigScreen, setIsBigScreen] = useState(window.innerWidth > BIGWIDTH);
+
+    useEffect(() => {
+        // 윈도우 크기 변화를 감지하는 함수
+        const handleResize = () => {
+            setIsBigScreen(window.innerWidth > BIGWIDTH);
+        };
+
+        // 윈도우 크기가 변할 때마다 handleResize 함수를 호출
+        window.addEventListener('resize', handleResize);
+
+        // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+        return () => window.removeEventListener('resize', handleResize);
+    }, []); // 빈 배열을 전달하여 컴포넌트 마운트 시 한 번만 실행되도록 함
+
+    // isBigScreen 상태에 따라 다른 컴포넌트 렌더링
+    if (isBigScreen) {
+        return (
+            <BigFilterPage
+                filterBtnHandler={filterBtnHandler}
+                getFilterN={getFilterN}
+            />
+        );
+    }
+
+
     return (
         <FilterContainer>
             <FilterBox 
@@ -58,7 +146,10 @@ const FilterBox = ({offFilter, filterBtnHandler, getFilterN}) => {
                 })
             }
             </FilterBoxItemWrapper>
-            <FitlerBtn onClick={()=>filterBtnHandler(tags)}>
+            <FitlerBtn onClick={()=>{
+                    filterBtnHandler(tags)
+                    offFilter()
+                }}>
                 {`${getFilterN(tags)}개의 결과보기`}
             </FitlerBtn>
         </FilterBoxContainer>
@@ -263,10 +354,19 @@ const BackBtn = styled.img`
 
 const FilterBoxContainer = styled.div`
     right: 0px;
-    position: fixed;
-    z-index: 4;
+    position: absolute;
+    top: 0;
+    z-index: 1;
     width: 388px;
     height: 100%;
+    background-color: white;
+    scroll-behavior: contain;
+    overflow-y: auto;
+`
+
+const BigFilterBoxContainer = styled.div`
+    position: relative;
+    width: 388px;
     background-color: white;
     scroll-behavior: contain;
     overflow-y: auto;

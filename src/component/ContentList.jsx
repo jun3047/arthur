@@ -79,22 +79,26 @@ const BlackBackground = styled.div`
 
 const ContentContainer = styled.div`
 
-    width: 750px;
+    width: 500px;
     overscroll-behavior: contain;
 
-    @media (max-width: 768px) {
-        width: 500px;
+    @media (min-width: 768px) {
+        width: 750px;
+    }
+
+    @media (min-width: 1200px) {
+        width: 1000px;
+    }
+
+    @media (min-width: 1500px) {
+        width: 1250px;
     }
 `
 
 const RelatedContentContainer = styled.div`
 
-    width: 195*3px;
+    width: calc(195*3px);
     overscroll-behavior: contain;
-
-    @media (max-width: 768px) {
-        width: 195*3px;
-    }
 `
 
 const ContentImgBox = styled.img`

@@ -75,7 +75,9 @@ const BookmarkToggleItem = ({item, nowContent, onBookmark}) => {
             <BookmarkToggleItemPlusBtn 
                 onBookmark={onBookmark}
                 nowContent={nowContent} 
-                title={title} src="/plusicon.svg"/>
+                title={title}
+                src="/plusicon.svg"
+            />
         </BookmarkToggleItemContainer>
     )
 }
