@@ -44,7 +44,21 @@ const useStore = create((set, get) => ({
         return newBookmark
       }
     ),
-    deleteBookmarkByIndex: (title, index) => set((state) => {
+    deleteBookmarkByIndex: (index) => set((state) => {
+      const newBookmark = {
+        bookmark: state.bookmark.map((mark) => ({
+          ...mark,
+          indexs: mark.indexs.filter((idx) => idx !== index),
+          // 인덱스가 변경되면 버전도 증가
+          version: mark.indexs.includes(index) ? mark.version + 1 : mark.version
+        }))
+      };
+  
+      window.electronAPI.setStore('bookmark', newBookmark);
+  
+      return newBookmark;
+    }),
+    deleteBookmarkByTitleIndex: (title, index) => set((state) => {
 
       const newBookmark = {bookmark: state.bookmark.map((mark) =>
               mark.title === title ? {

@@ -78,25 +78,33 @@ const DetailContainer = styled.div`
 
 const DetailHeader = ({close, nowContent}) => {
 
-    const {bookmark} = useStore()
+    
+    const {bookmark, deleteBookmarkByIndex} = useStore()
 
     const calculateActive = () => bookmark
         .find((bookmark) => bookmark.indexs.includes(nowContent.index))
 
     const [active, setActive] = useState(calculateActive)
-
+        
     useEffect(() => {
         setActive(calculateActive());
     }, [nowContent, bookmark]);
 
-    const onBookmark = () => setActive(true)
+    const delBookmark = () => {
+        deleteBookmarkByIndex(nowContent.index)
+        setActive(false)
+    }
 
     return (
         <DetailHeaderContainer>
             <BookmarkMeun
-                onBookmark={onBookmark}
+                onBookmark={() => setActive(true)}
                 nowContent={nowContent}/>
-            <BookmarkBtn active={active} nowContent={nowContent}/>
+            <BookmarkBtn
+                active={active}
+                nowContent={nowContent}
+                delBookmark={delBookmark}
+            />
             <Xbtn
                 src="/x.svg"
                 onClick={close}
@@ -106,10 +114,11 @@ const DetailHeader = ({close, nowContent}) => {
 }
 
 
-const BookmarkBtn = ({nowContent, active}) => {
+const BookmarkBtn = ({nowContent, active, delBookmark}) => {
 
     return (
-        <BookmarkBtnContainer 
+        <BookmarkBtnContainer
+            onClick={delBookmark}
             active={active}>
             <BookmarkBtnIcon />
         </BookmarkBtnContainer>
@@ -117,6 +126,14 @@ const BookmarkBtn = ({nowContent, active}) => {
 }
 
 const BookmarkBtnContainer = styled.div`
+
+    ${props => props.active & `
+        &:hover {
+            cursor: pointer;
+        }
+    `};
+    
+
     background-color: ${props => props.active ? '#403DDE' : '#555555'};
     display: flex;
     justify-content: center;
@@ -144,7 +161,7 @@ const DetailHeaderContainer = styled.div`
     background-color: white;
 `
 
-const BookmarkMeun = ({nowContent, onBookmark}) => {
+const BookmarkMeun = ({nowContent, onBookmark, offBookmark}) => {
 
     const {bookmark} = useStore()
 
