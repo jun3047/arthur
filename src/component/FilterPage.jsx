@@ -49,11 +49,10 @@ const BigFilterBoxContainerInner = styled.div`
 
     left: 0;
     position: fixed;
-    top: 145;
+    top: 144px;
     width: 388px;
     height: calc(100vh - 145px);
     background-color: white;
-    scroll-behavior: contain;
     overflow-y: auto;
 `
 
@@ -131,8 +130,8 @@ const FilterBox = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
                 <FitlerBoxTitle>필터</FitlerBoxTitle>
                 <BackBtn src="/back.svg" onClick={offFilter}/>
             </FitlerBoxHeader>
-            <FilterBoxItemWrapper>
             <FitlerRefreshBtn onClick={()=>setTags([])}/>
+            <FilterBoxItemWrapper>
             {
                 FilterBoxList.map((item, index) => {
                     return (
@@ -149,18 +148,15 @@ const FilterBox = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
             <FitlerBtn onClick={()=>{
                     filterBtnHandler(tags)
                     offFilter()
-                }}>
-                {
-                    FilterN === 0 ? '필터 초기화' : `${FilterN}개의 결과보기`
-                }
+            }}>
+            { FilterN === 0 ? '필터 초기화' : `${FilterN}개의 결과보기` }
             </FitlerBtn>
         </FilterBoxContainer>
     )
 }
 
 const FilterBoxItemWrapper = styled.div`
-    padding-bottom: 120px;
-    max-height: 100%;
+    max-height: calc(100% - 150px);
     overflow-y: auto;
     overscroll-behavior: contain;
 `

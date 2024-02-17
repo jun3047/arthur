@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import InfiniteScroll from "react-infinite-scroll-component"
 import ContentLoader from 'react-content-loader';
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const ContentList = ({ content, setDetail, fetchMoreData, hasMore }) => {
 
@@ -26,6 +26,10 @@ const ContentList = ({ content, setDetail, fetchMoreData, hasMore }) => {
 const ContentItem = ({item, setDetail}) => {
 
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+  }, [item])
 
   return (
     <BlackBackground key={item.index}>
@@ -116,9 +120,9 @@ const ContentContainer = styled.div`
     @media (min-width: 1200px) {
         width: 1000px;
     }
-
-    @media (min-width: 1500px) {
-        width: 1250px;
+    
+    @media (min-width: 1630px) {
+      width: 1250px;
     }
 `
 
