@@ -28,6 +28,7 @@ const BigFilterBox = ({filterBtnHandler, getFilterN}) => {
     return (
         <BigFilterBoxContainer>
             <BigFilterBoxContainerInner>
+                <FitlerRefreshBtn onClick={()=>setTags([])}/>
                 <FilterBoxItemWrapper>
                 {
                     FilterBoxList.map((item, index) => {
@@ -133,6 +134,7 @@ const FilterBox = ({offFilter, filterBtnHandler, getFilterN}) => {
                 <BackBtn src="/back.svg" onClick={offFilter}/>
             </FitlerBoxHeader>
             <FilterBoxItemWrapper>
+            <FitlerRefreshBtn onClick={()=>setTags([])}/>
             {
                 FilterBoxList.map((item, index) => {
                     return (
@@ -157,7 +159,7 @@ const FilterBox = ({offFilter, filterBtnHandler, getFilterN}) => {
 }
 
 const FilterBoxItemWrapper = styled.div`
-    padding: 50px 0 80px 0;
+    padding-bottom: 120px;
     max-height: 100%;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -195,7 +197,10 @@ const FilterBoxItem = ({item, handleTagClick, nowTags}) => {
     return (
         <FilterBoxItemContainer isOpen={isItemOpen}>
             <FilterBoxItemTitle onClick={()=>setIsItemOpen(!isItemOpen)}>
-                <ToggleBtn open={isItemOpen} src="/toggle.svg"/>
+                {isItemOpen ? 
+                    <ToggleBtn src="/toggle.svg"/>:
+                    <ToggleBtn src="/up.svg"/>
+                }
                 {item.name}
             </FilterBoxItemTitle>
             <FilterBoxItemBox remainder={item.children.length % 3}>
@@ -290,6 +295,7 @@ const FilterBoxItemContainer = styled.div`
     border-radius: 17.5px;
 
     &:hover {
+        cursor: pointer;
         background-color: ${({isOpen})=> isOpen ?  '#FFFFFF' : '#EDEDED'}
     }
 `
@@ -305,6 +311,7 @@ const FilterBoxItemTitle = styled.div`
 
     &:hover {
         cursor: pointer;
+    
     }
 `
 
@@ -313,7 +320,6 @@ const ToggleBtn = styled.img`
     width: 14.94px;
     height: 7.47px;
     margin-right: 10px;
-    transform: ${({ open }) => open ? 'none':'rotate(180deg)'};
 
     &:hover {
         cursor: pointer;
@@ -334,7 +340,7 @@ const FitlerBoxHeader = styled.div`
     top: 0;
     right: 0;
     height: 57px;
-    width: 378px;
+    width: 388px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -362,6 +368,8 @@ const FilterBoxContainer = styled.div`
     background-color: white;
     scroll-behavior: contain;
     overflow-y: auto;
+
+    padding-top: 50px;
 `
 
 const BigFilterBoxContainer = styled.div`
@@ -370,6 +378,58 @@ const BigFilterBoxContainer = styled.div`
     background-color: white;
     scroll-behavior: contain;
     overflow-y: auto;
+`
+
+const FitlerRefreshBtn = ({onClick}) => {
+
+    return (
+        <FitlerRefreshBtnLayout onClick={onClick}>
+            <FitlerRefreshBtnWarpper>
+                <RefreshIcon src="/refresh.svg" />
+                <RefreshText>새로고침</RefreshText>
+            </FitlerRefreshBtnWarpper>
+        </FitlerRefreshBtnLayout>
+    )
+}
+
+const FitlerRefreshBtnLayout = styled.div`
+    width: 100%;
+    background-color: white;
+    padding: 10px 22px;
+
+    display: flex;
+    justify-content: flex-end;
+
+`
+
+const RefreshText = styled.div`
+    font-size: 14px;
+    color: #555555;
+`
+
+const RefreshIcon = styled.img`
+    width: 12px;
+    height: 12px;
+`
+
+const FitlerRefreshBtnWarpper = styled.div`
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+
+    width: 113px;
+    height: 32px;
+    border-radius: 20px;
+    
+    background-color: #EDEDED;
+    border: none;
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid #C8C8C8;
+    }
 `
 
 
