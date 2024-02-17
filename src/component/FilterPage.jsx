@@ -4,18 +4,9 @@ import fakeData from '../constants.json';
 import { useEffect } from "react";
 
 
-export const BigFilterPage = ({filterBtnHandler, getFilterN}) => {
-    return (
-        <BigFilterBox
-            filterBtnHandler={filterBtnHandler} 
-            getFilterN={getFilterN}
-        />
-    )
-}
-
-const BigFilterBox = ({filterBtnHandler, getFilterN}) => {
-
-    const [tags, setTags] = useState([])
+export const BigFilterPage = ({initTags, filterBtnHandler, getFilterN}) => {
+    
+    const [tags, setTags] = useState(initTags)
     
     const handleTagClick = (tag) => {
 
@@ -66,7 +57,7 @@ const BigFilterBoxContainerInner = styled.div`
     overflow-y: auto;
 `
 
-const FilterPage = ({offFilter, filterBtnHandler, getFilterN}) => {
+const FilterPage = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
 
     const BIGWIDTH = 1360;
 
@@ -89,6 +80,7 @@ const FilterPage = ({offFilter, filterBtnHandler, getFilterN}) => {
     if (isBigScreen) {
         return (
             <BigFilterPage
+                initTags={initTags}
                 filterBtnHandler={filterBtnHandler}
                 getFilterN={getFilterN}
             />
@@ -99,6 +91,7 @@ const FilterPage = ({offFilter, filterBtnHandler, getFilterN}) => {
     return (
         <FilterContainer>
             <FilterBox 
+                initTags={initTags}
                 filterBtnHandler={filterBtnHandler} 
                 offFilter={offFilter}
                 getFilterN={getFilterN}
@@ -118,9 +111,9 @@ const FilterContainer = styled.div`
 
 const FilterBoxList = fakeData['fakeFilter']
 
-const FilterBox = ({offFilter, filterBtnHandler, getFilterN}) => {
+const FilterBox = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
 
-    const [tags, setTags] = useState([])
+    const [tags, setTags] = useState(initTags)
     
     const handleTagClick = (tag) => {
 

@@ -64,6 +64,8 @@ export const MainPage = () => {
   const [content, setContent] = useState(allContent.slice(0, 30)); // 초기 데이터 로드
   const [hasMore, setHasMore] = useState(true); // 더 로드할 데이터가 있는지 상태
 
+  const [tags, setTags] = useState([])
+
   const ref = useRef(null);
 
   useEffect(() => {
@@ -151,6 +153,7 @@ export const MainPage = () => {
   }
 
   const getFilterN = (tagList) => {
+
     const filterContent = fakeData['fakeContent']
     .filter((item) => {
       // 조건 1: tag 하나라도 있으면, 결과에 포함
@@ -171,12 +174,14 @@ export const MainPage = () => {
     <PageContainer ref={ref}>
       <Header handleSearch={handleSearch}/>
       <MenuHeader />
-       <FilterBtn onFilter={()=>setFilter(!filter)} active={filter}/>
+       <FilterBtn onFilter={()=>setFilter(!filter)} active={filter || tags.length}/>
        {filter && (
         <FilterPage
+          initTags={tags}
           offFilter={()=>setFilter(false)}
           filterBtnHandler={(tagList)=>{
               filterByTags(tagList)
+              setTags(tagList)
             }}
           getFilterN = {getFilterN}
         />)}
