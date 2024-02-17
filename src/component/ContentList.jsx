@@ -1,7 +1,12 @@
 import styled from "styled-components"
 import InfiniteScroll from "react-infinite-scroll-component"
+import ContentLoader from 'react-content-loader';
+import { useState } from "react"
 
 const ContentList = ({ content, setDetail, fetchMoreData, hasMore }) => {
+
+    const [loading, setLoading] = useState(true);
+
     return (
       <InfiniteScroll
         dataLength={content.length} // 현재 보여지는 콘텐츠의 길이
@@ -11,14 +16,26 @@ const ContentList = ({ content, setDetail, fetchMoreData, hasMore }) => {
         <ContentContainer>
           {content.map((item) => (
             <BlackBackground key={item.index}>
-              <ContentImgBox
-                src={'/webp/' + item.index + '.webp'}
-                alt="예시 이미지"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setDetail(item);
-                }}
-              />
+            {loading && (
+              <ContentLoader
+                speed={2}
+                width={225}
+                height={225}
+                backgroundColor="#f3f3f3"
+                foregroundColor="#ecebeb"            
+              >
+              <rect x="0" y="0" rx="20" ry="20" width="225" height="225" />
+              </ContentLoader>
+            )}
+            <ContentImgBox
+              src={'/webp/' + item.index + '.webp'}
+              alt="예시 이미지"
+              onLoad={() => setLoading(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                setDetail(item);
+              }}
+            />
             </BlackBackground>
           ))}
         </ContentContainer>
