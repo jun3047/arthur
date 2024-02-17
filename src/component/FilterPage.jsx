@@ -20,10 +20,11 @@ const BigFilterBox = ({filterBtnHandler, getFilterN}) => {
     const handleTagClick = (tag) => {
 
         const isTagSelected = tags.includes(tag);
-    
         if (isTagSelected) setTags(tags.filter(selectedTag => selectedTag !== tag));
         else setTags([...tags, tag]);
     };
+
+    const FilterN = getFilterN(tags)
 
     return (
         <BigFilterBoxContainer>
@@ -44,7 +45,9 @@ const BigFilterBox = ({filterBtnHandler, getFilterN}) => {
                 }
                 </FilterBoxItemWrapper>
                 <FitlerBtn onClick={()=>filterBtnHandler(tags)}>
-                    {`${getFilterN(tags)}개의 결과보기`}
+                    {
+                        FilterN === 0 ? '필터 초기화' : `${FilterN}개의 결과보기`
+                    }
                 </FitlerBtn>
             </BigFilterBoxContainerInner>
         </BigFilterBoxContainer>
@@ -127,6 +130,8 @@ const FilterBox = ({offFilter, filterBtnHandler, getFilterN}) => {
         else setTags([...tags, tag]);
     };
 
+    const FilterN = getFilterN(tags)
+
     return (
         <FilterBoxContainer>
             <FitlerBoxHeader>
@@ -152,7 +157,9 @@ const FilterBox = ({offFilter, filterBtnHandler, getFilterN}) => {
                     filterBtnHandler(tags)
                     offFilter()
                 }}>
-                {`${getFilterN(tags)}개의 결과보기`}
+                {
+                    FilterN === 0 ? '필터 초기화' : `${FilterN}개의 결과보기`
+                }
             </FitlerBtn>
         </FilterBoxContainer>
     )

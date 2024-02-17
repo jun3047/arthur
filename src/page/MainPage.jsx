@@ -94,6 +94,16 @@ export const MainPage = () => {
   };
 
   const filterByTags = (tagList) => {
+
+    if (tagList.length === 0) {
+
+      console.log("tagList.length === 0")
+      setAllContent(shuffleArray(fakeData['fakeContent']));
+      setContent(allContent.slice(0, 30));
+      setHasMore(true);
+      return;
+    }
+
     const filterContent = fakeData['fakeContent']
       .filter((item) => {
         // 조건 1: tag 하나라도 있으면, 결과에 포함
