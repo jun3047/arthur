@@ -44,15 +44,24 @@ const BookmarkList = ({bookmark}) => {
         {
           bookmark.map((item, index) => {
 
+          const isFourBookmarks = item.indexs.length > 3
+
           return (
             <BookmarkItemWrapper>
             {
+                isFourBookmarks ? <BookmarkFourItem
+                  onClick={() => {
+                    navigation('/bookmark/' + item.title)
+                  }}
+                  key={index}
+                  item={item}
+                /> :
                 item.indexs[0] ? <BookmarkItem
                   onClick={() => {
                     navigation('/bookmark/' + item.title)          
                   }}
                   key={index} 
-                  src={'/webp/' + item.indexs[0].toString() + '.webp'}
+                  src={'/webp/' + item.indexs[-1].toString() + '.webp'}
                   item={item}
                 />:
                 <EntpyBookmarkItem
@@ -89,6 +98,7 @@ const BookmarkListContainer = styled.div`
 
 const BookmarkItemWrapper = styled.div`
 
+    position: relative;
     width: 295px;
     margin: 15px;
 
@@ -99,6 +109,56 @@ const BookmarkItemWrapper = styled.div`
     &:hover {
         cursor: pointer;
     }
+`
+
+const BookmarkFourItem = ({onClick, item}) => {
+
+  const imgList = item.indexs.slice(-4);
+
+  return(
+    <BookmarkItemContainer>
+      {
+        imgList.map((index, idx) => {
+          return (
+            <BookmarkItemContainerImg
+              key={idx}
+              src={'/webp/' + index.toString() + '.webp'}
+              onClick={onClick}
+            />
+          )
+        })
+      }
+      <BookmarkItemBar up={true}/>
+      <BookmarkItemBar up={false}/>
+    </BookmarkItemContainer>
+  )
+}
+
+const BookmarkItemContainerImg = styled.img`
+    width: 100%;
+    height: 100%;
+`
+
+const BookmarkItemBar = styled.div`
+
+  //props로 받아서 가로 세로 길이를 조절할 수 있게 하기
+  width: ${props => props.up ? `100%` : `5px`};
+  height: ${props => props.up ? `5px` : `100%`};
+  position: absolute;
+
+  ${props => props.up ? `bottom: 50%;` : `right: 50%;`};
+  background-color: white;
+`
+
+const BookmarkItemContainer = styled.div`
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 295px;
+  height: 295px;
+  border-radius: 20px;
+  overflow: hidden;
 `
 
 const BookmarkItem = styled.img`
@@ -115,8 +175,10 @@ const EntpyBookmarkItem = styled.img`
 `
 
 const BookMarkText = styled.div`
-  right: -20px;
-  top: -60px;
+
+  position: absolute;
+  left: 18px;
+  bottom: -30px;
   color: #000;
   font-size: 20px;
   font-weight: 600;
