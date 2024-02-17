@@ -28,7 +28,6 @@ const MeunTextBar = styled.div`
 
 const HeaderContainer = styled.div`
     z-index: 1;
-    min-width: 768px;
     width: 100%;
     padding: 18px 22px 19px 22px;
     background-color: white;
