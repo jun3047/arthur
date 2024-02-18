@@ -38,6 +38,8 @@ const PageContainer = styled.div`
 const BookmarkList = ({bookmark}) => {
 
     const navigation = useNavigate()
+
+    console.log("BookmarkList_bookmark:", bookmark)
   
     return (
       <BookmarkListContainer>
@@ -45,6 +47,9 @@ const BookmarkList = ({bookmark}) => {
           bookmark.map((item, index) => {
 
           const isFourBookmarks = item.indexs.length > 3
+
+          console.log("item.indexs:", item.indexs)
+          console.log("item.indexs[-1]:", item.indexs.at(-1))
 
           return (
             <BookmarkItemWrapper>
@@ -61,7 +66,7 @@ const BookmarkList = ({bookmark}) => {
                     navigation('/bookmark/' + item.title)          
                   }}
                   key={index} 
-                  src={'/webp/' + item.indexs[-1].toString() + '.webp'}
+                  src={'/webp/' + item.indexs.at(-1) + '.webp'}
                   item={item}
                 />:
                 <EntpyBookmarkItem
@@ -115,14 +120,16 @@ const BookmarkFourItem = ({onClick, item}) => {
 
   const imgList = item.indexs.slice(-4);
 
+  console.log("imgList:", imgList)
+
   return(
     <BookmarkItemContainer>
       {
-        imgList.map((index, idx) => {
+        imgList.map((itemIndex, idx) => {
           return (
             <BookmarkItemContainerImg
               key={idx}
-              src={'/webp/' + index.toString() + '.webp'}
+              src={'/webp/' + itemIndex + '.webp'}
               onClick={onClick}
             />
           )
