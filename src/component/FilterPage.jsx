@@ -139,7 +139,6 @@ const FilterPage = ({isFilter, initTags, offFilter, filterBtnHandler, getFilterN
 
     return (
         <FilterContainer
-            onClick={()=>_setIsFilter(false)}
             onAnimationComplete={() => _isFilter || offFilter()}
             initial="hidden"
             end="hidden"
