@@ -60,7 +60,7 @@ export const MainPage = () => {
   const [detail, setDetail] = useState(undefined)
   const [filter, setFilter] = useState(false)
 
-  const [allContent, setAllContent] = useState(shuffleArray(fakeData['fakeContent']))
+  const [allContent, setAllContent] = useState(fakeData['fakeContent'])
   const [content, setContent] = useState(allContent.slice(0, 30)); // 초기 데이터 로드
   const [hasMore, setHasMore] = useState(true); // 더 로드할 데이터가 있는지 상태
 
@@ -175,16 +175,16 @@ export const MainPage = () => {
       <Header handleSearch={handleSearch}/>
       <MenuHeader />
        <FilterBtn onFilter={()=>setFilter(!filter)} active={filter || tags.length}/>
-       {filter && (
-        <FilterPage
-          initTags={tags}
-          offFilter={()=>setFilter(false)}
-          filterBtnHandler={(tagList)=>{
-              filterByTags(tagList)
-              setTags(tagList)
-            }}
-          getFilterN = {getFilterN}
-        />)}
+      <FilterPage
+        isFilter={filter}
+        initTags={tags}
+        offFilter={()=>setFilter(false)}
+        filterBtnHandler={(tagList)=>{
+            filterByTags(tagList)
+            setTags(tagList)
+          }}
+        getFilterN = {getFilterN}
+      />
       <ContentList content={content} setDetail={setDetail} fetchMoreData={fetchMoreData} hasMore={hasMore} />
       {detail && (
         <DetailPage

@@ -2,9 +2,42 @@ import styled from "styled-components"
 import { useState } from "react"
 import fakeData from '../constants.json';
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 
-export const BigFilterPage = ({initTags, filterBtnHandler, getFilterN}) => {
+const sidebarVariants = {
+    hidden: {
+        left: '-388px',
+        transition: {
+            ease: "easeOut",
+            duration: 0.5,
+        },
+    },
+    visible: {
+        left: 0,
+        transition: {
+            ease: "easeOut",
+            duration: 0.5,
+        },
+    },
+    warpperHidden: {
+        width: 0,
+        transition: {
+            ease: "easeOut",
+            duration: 0.5,
+        },
+    },
+    warpperVisible: {
+        width: 388,
+        left: 0,
+        transition: {
+            ease: "easeOut",
+            duration: 0.5,
+        },
+    },
+};
+
+export const BigFilterPage = ({isFilter, initTags, filterBtnHandler, getFilterN}) => {
     
     const [tags, setTags] = useState(initTags)
     
@@ -18,8 +51,18 @@ export const BigFilterPage = ({initTags, filterBtnHandler, getFilterN}) => {
     const FilterN = getFilterN(tags)
 
     return (
-        <BigFilterBoxContainer>
-            <BigFilterBoxContainerInner>
+        <BigFilterBoxContainer
+            initial="hidden"
+            end="hidden"
+            animate={isFilter ? "warpperVisible" : "warpperHidden"}
+            variants={sidebarVariants}
+        >
+            <BigFilterBoxContainerInner
+                initial="hidden"
+                end="hidden"
+                animate={isFilter ? "visible" : "hidden"}
+                variants={sidebarVariants}
+            >
                 <FitlerRefreshBtn onClick={()=>setTags([])}/>
                 <FilterBoxItemWrapper>
                 {
@@ -45,7 +88,7 @@ export const BigFilterPage = ({initTags, filterBtnHandler, getFilterN}) => {
     )
 }
 
-const BigFilterBoxContainerInner = styled.div`
+const BigFilterBoxContainerInner = styled(motion.div)`
 
     left: 0;
     position: fixed;
@@ -56,11 +99,16 @@ const BigFilterBoxContainerInner = styled.div`
     overflow-y: auto;
 `
 
-const FilterPage = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
+const FilterPage = ({isFilter, initTags, offFilter, filterBtnHandler, getFilterN}) => {
 
     const BIGWIDTH = 1360;
 
     const [isBigScreen, setIsBigScreen] = useState(window.innerWidth > BIGWIDTH);
+    const [ _isFilter, _setIsFilter] = useState(isFilter)
+
+    useEffect(() => {
+        _setIsFilter(isFilter)
+    }, [isFilter])
 
     useEffect(() => {
         // 윈도우 크기 변화를 감지하는 함수
@@ -79,6 +127,7 @@ const FilterPage = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
     if (isBigScreen) {
         return (
             <BigFilterPage
+                isFilter={isFilter}
                 initTags={initTags}
                 filterBtnHandler={filterBtnHandler}
                 getFilterN={getFilterN}
@@ -86,10 +135,27 @@ const FilterPage = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
         );
     }
 
+    if(!isFilter) return null
 
     return (
-        <FilterContainer>
+        <FilterContainer
+            onClick={()=>_setIsFilter(false)}
+            onAnimationComplete={() => _isFilter || offFilter()}
+            initial="hidden"
+            end="hidden"
+            animate={_isFilter ? "visible" : "hidden"}
+            variants={{
+                hidden: {
+                    opacity: 0,
+                },
+                visible: {
+                    opacity: 1,
+                },
+            }}
+        >
             <FilterBox 
+                _setIsFilter={_setIsFilter}
+                _isFilter={_isFilter}
                 initTags={initTags}
                 filterBtnHandler={filterBtnHandler} 
                 offFilter={offFilter}
@@ -99,7 +165,7 @@ const FilterPage = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
     )
 }
 
-const FilterContainer = styled.div`
+const FilterContainer = styled(motion.div)`
     z-index: 3;
     top: 0px;
     position: fixed;
@@ -110,7 +176,7 @@ const FilterContainer = styled.div`
 
 const FilterBoxList = fakeData['fakeFilter']
 
-const FilterBox = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
+const FilterBox = ({_setIsFilter, _isFilter, initTags, offFilter, filterBtnHandler, getFilterN}) => {
 
     const [tags, setTags] = useState(initTags)
     
@@ -124,11 +190,34 @@ const FilterBox = ({initTags, offFilter, filterBtnHandler, getFilterN}) => {
 
     const FilterN = getFilterN(tags)
 
+    const smallSidebarVariants = {
+        hidden: {
+            right: '-388px',
+            transition: {
+                ease: "easeOut",
+                duration: 0.5,
+            },
+        },
+        visible: {
+            right: 0,
+            transition: {
+                ease: "easeOut",
+                duration: 0.5,
+            },
+        },
+    }
+
     return (
-        <FilterBoxContainer>
+        <FilterBoxContainer
+            initial="hidden"
+            end="hidden"
+            animate={_isFilter ? "visible" : "hidden"}
+            variants={smallSidebarVariants}
+            onAnimationComplete={() => _isFilter || offFilter()}
+        >
             <FitlerBoxHeader>
                 <FitlerBoxTitle>필터</FitlerBoxTitle>
-                <BackBtn src="/back.svg" onClick={offFilter}/>
+                <BackBtn src="/back.svg" onClick={()=>_setIsFilter(false)}/>
             </FitlerBoxHeader>
             <FitlerRefreshBtn onClick={()=>setTags([])}/>
             <FilterBoxItemWrapper>
@@ -332,7 +421,6 @@ const FitlerBoxTitle = styled.div`
 `
 
 const FitlerBoxHeader = styled.div`
-    position: fixed;
     top: 0;
     right: 0;
     height: 57px;
@@ -354,9 +442,9 @@ const BackBtn = styled.img`
     }
 `
 
-const FilterBoxContainer = styled.div`
-    right: 0px;
-    position: absolute;
+const FilterBoxContainer = styled(motion.div)`
+    right: 0;
+    position: fixed;
     top: 0;
     z-index: 1;
     width: 388px;
@@ -364,16 +452,12 @@ const FilterBoxContainer = styled.div`
     background-color: white;
     scroll-behavior: contain;
     overflow-y: auto;
-
-    padding-top: 50px;
 `
 
-const BigFilterBoxContainer = styled.div`
+const BigFilterBoxContainer = styled(motion.div)`
     position: relative;
     width: 388px;
     background-color: white;
-    scroll-behavior: contain;
-    overflow-y: auto;
 `
 
 const FitlerRefreshBtn = ({onClick}) => {
