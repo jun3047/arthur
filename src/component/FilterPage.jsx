@@ -456,7 +456,7 @@ const FilterBoxContainer = styled(motion.div)`
 
 const BigFilterBoxContainer = styled(motion.div)`
     position: relative;
-    width: 388px;
+    width: 0;
     background-color: white;
 `
 
